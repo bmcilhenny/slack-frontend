@@ -21,7 +21,7 @@ class App extends Component {
             <Route exact path="/signup" render = {() => <Signup /> }>
               Sign up
             </Route>
-            <Route exact path="/home" render = {() => <SlackHome /> }>
+            <Route exact path="/slackhome" render = {() => <SlackHome /> }>
               Slack Home
             </Route>
           </Switch>
