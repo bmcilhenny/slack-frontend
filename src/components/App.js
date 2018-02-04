@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <div id="content" className = "ui container">
+        <div id="content">
           <Switch>
             <Route exact path="/login" render = {() => <Login /> }>
               Login

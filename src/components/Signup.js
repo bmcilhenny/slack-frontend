@@ -1,5 +1,5 @@
 import React from 'react';
-import {adapter} from '../services';
+import {adapter} from '../adapter';
 
 class Signup extends React.Component {
   constructor() {

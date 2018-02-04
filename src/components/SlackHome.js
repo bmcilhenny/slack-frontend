@@ -17,9 +17,9 @@ class SlackHome extends React.Component {
 
   render() {
     return (
-      <div>
-        <ChannelsList />
-        <ChannelContainer />
+      <div className="ui padded equal height grid">
+        <div className="five wide column violet"><ChannelsList /></div>
+        <div className="eleven wide column"><ChannelContainer /></div>
       </div>
 
     )

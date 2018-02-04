@@ -1,57 +1,35 @@
 import { combineReducers } from 'redux';
 
-const initialState = { currentUser: {} };
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = { currentUser: {}}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
     const { id, username } = action.user;
-    return { ...state, currentUser: { id, username } };
+      return { ...state, currentUser: { id, username } };
     case 'LOGOUT_USER':
-    return { ...state, currentUser: {} };
+      return { ...state, currentUser: {} };
     default:
-    return state;
+      return state;
   }
 };
 
+
+const channelsReducer = (state = {activeChannel: {}, channels: [], loading: false}, action) => {
+  switch (action.type) {
+    case 'ASYNC_START':
+      return { ...state, loading: true }
+    case 'SET_CURRENT_CHANNEL':
+    // const { id, name, details, messages} = action.channel
+      return {...state, activeChannel: {...action.channel}}
+    case 'GRAB_ALL_USER_CHANNELS':
+      return {...state, channels: [...action.channels], loading: false}
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  channel: channelsReducer
 });
 
 export default rootReducer;
-// const rootReducer = combineReducers({
-//   channels: channelsReducer,
-//   messages: messagesReducer,
-//   // users: usersReducer
-// });
-//
-// export const store = createStore(rootReducer);
-//
-// function channelsReducer(state = [], action) {
-//   switch (action.type) {
-//
-//      case "ADD_CHANNEL":
-//       return state.concat(action.channel);
-//
-//     case "REMOVE_CHANNEL":
-//       const idx = state.indexOf(action.id);
-//       return [ ...state.slice(0, idx), ...state.slice(idx + 1) ];
-//
-//     default:
-//       return state;
-//   }
-// }
-//
-// function messagesReducer(state = [], action) {
-//   switch (action.type) {
-//
-//     case "ADD_MESSAGE":
-//       return state.concat(action.message);
-//
-//     case "REMOVE_MESSAGE":
-//       const idx = state.indexOf(action.id);
-//       return [ ...state.slice(0, idx), ...state.slice(idx + 1) ];
-//
-//     default:
-//       return state;
-//   }
-// }

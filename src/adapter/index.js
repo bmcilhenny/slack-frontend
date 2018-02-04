@@ -23,7 +23,7 @@ const getCurrentUser = () => {
 };
 
 const login = data => {
-  console.log(data)
+  // console.log(data)
   return fetch(`${API_ROOT}/login`, {
     method: 'POST',
     headers,
@@ -41,6 +41,16 @@ const signup = data => {
 };
 
 
+const getByChannel = channel_id => {
+  let user_id = localStorage.getItem('user_id')
+  return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels.find(channel => channel.id === channel_id))
+}
+
+const grabUserChannels = user_id => {
+  console.log("Inside the grabUserChannels function", user_id)
+  return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels)
+}
+
 export const adapter = {
   auth: {
     login,
@@ -49,5 +59,9 @@ export const adapter = {
   },
   users: {
     getUsers
+  },
+  channels: {
+    getByChannel,
+    grabUserChannels
   }
 };
