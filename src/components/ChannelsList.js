@@ -8,8 +8,8 @@ class ChannelsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      message: ''
     };
-
   }
 
   renderSpinner() {
@@ -22,16 +22,22 @@ class ChannelsList extends React.Component {
   }
 
 
+
   componentDidMount() {
     // this.props.grabActiveChannel(this.props.activeChannel)
     this.props.grabUserChannels(this.props.currentUser)
   }
   renderChannels() {
-    let userChannels = this.props.channels.map(channel => <li key={channel.id} id={channel.id}>{channel.name} Members: {channel.users.length}</li>)
+    let activeChannel = this.props.activeChannel
+    let userChannels = this.props.channels.map(channel => <li key={channel.id} id={channel.id} className="customBullet" >{channel.name} </li>)
     return (
-      <ul>
-      {userChannels}
-      </ul>
+      <div>
+        <h1>Channels</h1><i class="plus icon"></i>
+        <ul>
+        {userChannels}
+        </ul>
+        <h1>Direct Message</h1>
+      </div>
     );
   }
 

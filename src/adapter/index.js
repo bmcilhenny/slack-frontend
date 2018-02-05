@@ -13,6 +13,7 @@ const getUsers = () => {
 
 const getWithToken = url => {
   const token = localStorage.getItem('token');
+  debugger
   return fetch(url, {
     headers: { Authorization: token }
   }).then(res => res.json());
@@ -51,6 +52,14 @@ const grabUserChannels = user_id => {
   return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels)
 }
 
+const createMessage = message => {
+  return fetch(`${API_ROOT}/messages`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(message)
+  }).then(res => res.json())
+}
+
 export const adapter = {
   auth: {
     login,
@@ -63,5 +72,8 @@ export const adapter = {
   channels: {
     getByChannel,
     grabUserChannels
+  },
+  messages: {
+    createMessage
   }
 };

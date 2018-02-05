@@ -18,11 +18,15 @@ class ChannelContainer extends React.Component {
   }
 
   renderChannelMessages() {
-  let channelMessages = this.props.channelMessages.map(message => <li key={message.id} id={message.id}>{message.user.display_name}: {message.content} </li>)
+  let activeChannel = this.props.activeChannel
+  let channelMessages = this.props.channelMessages.map(message => <li key={message.id} id={message.id}> {message.user.display_name}: {message.content} </li>)
   return (
-    <ul>
-    {channelMessages}
-    </ul>
+    <div>
+      <h3>{activeChannel.name}</h3>
+      <ul>
+      {channelMessages}
+      </ul>
+    </div>
   );
 }
 
@@ -41,7 +45,7 @@ class ChannelContainer extends React.Component {
 const mapStateToProps = state => ({
   activeChannel: state.channel.activeChannel,
   currentUser: state.auth.currentUser.id,
-  channelMessages: state.channel.activeChannel.messages,
+  channelMessages: state.channel.activeChannel.messages ? state.channel.activeChannel.messages : [],
   loading: state.channel.loading
 })
 
