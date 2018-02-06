@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import ChannelsList from './ChannelsList';
 import ChannelContainer from './ChannelContainer';
-
+import {ActionCable} from 'react-actioncable-provider';
 
 
 class SlackHome extends React.Component {
@@ -18,8 +17,15 @@ class SlackHome extends React.Component {
   render() {
     return (
       <div className="ui padded equal height grid">
-        <div className="five wide column violet"><ChannelsList /></div>
-        <div className="eleven wide column"><ChannelContainer /></div>
+        <ActionCable
+          channel={{ channel: 'ChannelChannel'}}
+          onReceived={(newMessage) => {
+            console.log(newMessage)
+            this.props.addMessage(newMessage)
+          }}
+        />
+        <div className="three wide column violet"><ChannelsList /></div>
+        <div className="thirteen wide column"><ChannelContainer /></div>
       </div>
 
     )
@@ -27,4 +33,4 @@ class SlackHome extends React.Component {
 
 }
 
-export default SlackHome;
+export default connect(null, actions)(SlackHome);

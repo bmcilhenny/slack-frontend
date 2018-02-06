@@ -5,9 +5,10 @@ body {
 }
 
 #content {
-  padding-top: 100px;
+  position: absolute;
+  padding-top: 50px;
   height: 100%;
-  min-height: 100%;
+  width: 100%
 }
 
 .ui.grid {
@@ -22,9 +23,56 @@ ul {
 	padding-left: 1.2em;
 }
 
-/* .customBullet ul li:before {
-	content: "#";
-	position: absolute;
-	left: 0;
-  font-size: 2 em;
+.channelContainerStyling {
+  vertical-align: bottom;
+  padding:0;
+  overflow: scroll; overflow-x:hidden;
+  height:90%;
+  top: 40px;
+}
+
+#fixedChannelHeader {
+  /* float: left; */
+  border-bottom: 4mm ridge rgb(170, 50, 220, .6);
+  vertical-align: middle;
+  background-color: white;
+  z-index: 1;
+  padding-left: 1em;
+  padding-top: 1em;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 50px; /* Position the navbar at the top of the page */
+  width: 100%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+a {
+  color: white !important;
+}
+
+a:hover {
+    color: white !important;
+}
+
+a:link {
+    color: white !important;
+}
+
+.messages {
+  position: relative;
+  padding-top: 300px;
+}
+/* #floatedChannelSearchBar {
+  position: relative;
+  float: right;
+  overflow: hidden;
+} */
+
+/* .fixedNewMessage {
+  height: 10%;
+  background-color: white;
+  color: white;
+  text-align: center;
 } */

@@ -57,7 +57,7 @@ const createMessage = message => {
     method: 'POST',
     headers,
     body: JSON.stringify(message)
-  }).then(res => res.json())
+  })
 }
 
 export const adapter = {

@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
-
+import { Form, Input } from 'semantic-ui-react';
+import NewChannelModal from './NewChannelModal';
+import NewDMModal from './NewDMModal';
 
 class ChannelsList extends React.Component {
   constructor(props) {
@@ -21,22 +23,31 @@ class ChannelsList extends React.Component {
     );
   }
 
-
+  handleChannelClick = (event) => {
+    this.props.updateActiveChannel(event.target.id)
+  }
 
   componentDidMount() {
     // this.props.grabActiveChannel(this.props.activeChannel)
-    this.props.grabUserChannels(this.props.currentUser)
+    this.props.grabUserChannels(this.props.currentUser.id)
   }
+
   renderChannels() {
-    let activeChannel = this.props.activeChannel
-    let userChannels = this.props.channels.map(channel => <li key={channel.id} id={channel.id} className="customBullet" >{channel.name} </li>)
+    console.log("Inside the channel list component", this.props)
+    let userChannels = this.props.channels.map(channel => <a onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className="customBullet" id={channel.id}>{channel.name} </li></a>)
     return (
       <div>
-        <h1>Channels</h1><i class="plus icon"></i>
+        <h2>{this.props.currentUser.display_name}</h2>
+        <Form>
+          <Form.Group widths='equal'>
+            <Form.Input fluid placeholder='Jump to...' id="message"/>
+          </Form.Group>
+        </Form>
+        <h3>Channels < NewChannelModal /></h3>
         <ul>
         {userChannels}
         </ul>
-        <h1>Direct Message</h1>
+        <h3>Direct Message < NewDMModal /></h3>
       </div>
     );
   }
@@ -53,10 +64,14 @@ class ChannelsList extends React.Component {
 
 const mapStateToProps = state => ({
   activeChannel: state.channel.activeChannel,
-  currentUser: state.auth.currentUser.id,
+  currentUser: state.auth.currentUser,
   channels: state.channel.channels,
   loading: state.channel.loading
 })
+
+
+
+
 
 
 export default connect(mapStateToProps, actions)(ChannelsList);

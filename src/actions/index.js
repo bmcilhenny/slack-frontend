@@ -26,7 +26,7 @@ export const logoutUser = () => {
 
 export const grabActiveChannel = (channel_id) => dispatch => {
   adapter.channels.getByChannel(channel_id).then(channel => {
-    console.log("Just finished fething")
+    console.log("Just finished fething the active channel", channel)
     dispatch({ type: 'SET_CURRENT_CHANNEL', channel})
     localStorage.setItem('activeChannel', channel_id);
   })
@@ -35,7 +35,7 @@ export const grabActiveChannel = (channel_id) => dispatch => {
 export const grabUserChannels = (user_id) => dispatch => {
   setTimeout(() => {
     adapter.channels.grabUserChannels(user_id).then(channels => {
-    console.log("Just finished fething", channels)
+    // console.log("Just finished fething", channels)
     dispatch({ type: 'GRAB_ALL_USER_CHANNELS', channels})
     localStorage.setItem('userChannels', channels);
       })
@@ -45,4 +45,13 @@ export const grabUserChannels = (user_id) => dispatch => {
   //   console.log("Just finished fething", channels)
   //   dispatch({ type: 'GRAB_ALL_USER_CHANNELS', channels})
   //   localStorage.setItem('userChannels', channels);
+}
+
+
+export const addMessage = (message) => dispatch => {
+  dispatch({ type: 'ADD_MESSAGE_TO_CHANNEL', message})
+}
+
+export const updateActiveChannel = (id) => dispatch => {
+  dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
 }

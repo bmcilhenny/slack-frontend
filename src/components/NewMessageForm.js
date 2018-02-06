@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Button, Icon } from 'semantic-ui-react';
+import { Form, Button, Icon, Input } from 'semantic-ui-react';
 import { adapter } from '../adapter';
-
+import { connect } from 'react-redux';
 
 class NewMessageForm extends React.Component {
   constructor(props) {
@@ -18,32 +18,36 @@ class NewMessageForm extends React.Component {
 
  createMessage = event => {
    event.preventDefault();
+   console.log("This is the state", this.state)
+   console.log("these are the props", this.props)
    if (this.state.message !== "") {
-   adapter.messages.createMessage({content: this.state.message})
-   this.setState({
-     message: ''
-   })
+
+     adapter.messages.createMessage({content: this.state.message, user_id: this.props.currentUser.id, channel_id: this.props.activeChannelID})
+
+     this.setState({
+       message: ''
+     })
   }
 }
 
   render() {
-
+    console.log(this.state)
     return (
-
-      <Form onSubmit={this.createUser}>
+      <Form onSubmit={this.createMessage}>
         <Form.Group widths='equal'>
-          <Form.Input fluid label='Image Link' placeholder='Type a message...' id="message" value={this.state.message} onChange={this.handleChange}/>
+          <Form.Input fluid placeholder='Type a message...' id="message" value={this.state.message} onChange={this.handleChange}/>
         </Form.Group>
-        <Button primary size='huge' type="submit">
-          Submit
-          <Icon name='right arrow' />
-        </Button>
       </Form>
     )
   }
 }
 
-export default NewMessageForm;
+const mapStateToProps = state => ({
+  activeChannelID: state.channel.activeChannelID,
+  currentUser: state.auth.currentUser
+})
+
+export default connect(mapStateToProps, null)(NewMessageForm);
 
 // <div>
 //   <div class="ui fluid action input">
