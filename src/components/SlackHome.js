@@ -11,18 +11,29 @@ class SlackHome extends React.Component {
     super(props);
     this.state = {
     };
-
   }
+
+  handleSocketResponse = data => {
+    switch (data.type) {
+      case 'NEW_MESSAGE':
+        this.props.addMessage(data.payload);
+        break;
+      case 'NEW_CHANNEL':
+        this.props.addChannel(data.payload);
+        break;
+      case 'NEW_USER':
+        this.props.addUser(data.payload);
+      default:
+        console.log(data);
+    }
+  };
 
   render() {
     return (
       <div className="ui padded equal height grid">
         <ActionCable
           channel={{ channel: 'ChannelChannel'}}
-          onReceived={(newMessage) => {
-            console.log(newMessage)
-            this.props.addMessage(newMessage)
-          }}
+          onReceived={this.handleSocketResponse}
         />
         <div className="three wide column violet"><ChannelsList /></div>
         <div className="thirteen wide column"><ChannelContainer /></div>

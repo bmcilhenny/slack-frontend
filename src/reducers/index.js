@@ -18,7 +18,6 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
     case 'ASYNC_START':
       return { ...state, loading: true }
     case 'SET_CURRENT_CHANNEL':
-    // const { id, name, details, messages} = action.channel
       return {...state, activeChannelID: action.channel.id}
     case 'UPDATE_ACTIVE_CHANNEL':
       return {...state, activeChannelID: parseInt(action.id)}

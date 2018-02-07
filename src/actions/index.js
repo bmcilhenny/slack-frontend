@@ -52,6 +52,10 @@ export const addMessage = (message) => dispatch => {
   dispatch({ type: 'ADD_MESSAGE_TO_CHANNEL', message})
 }
 
+export const addChannel = (channel) => dispatch => {
+  dispatch({ type: 'ADD_CHANNEL_TO_USERS', channel})
+}
+
 export const updateActiveChannel = (id) => dispatch => {
   dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
 }

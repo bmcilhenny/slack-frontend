@@ -52,6 +52,15 @@ const grabUserChannels = user_id => {
   return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels)
 }
 
+const createChannels = channel => {
+  debugger;
+  return fetch(`${API_ROOT}/channel`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(channel)
+  })
+}
+
 const createMessage = message => {
   return fetch(`${API_ROOT}/messages`, {
     method: 'POST',
@@ -71,7 +80,8 @@ export const adapter = {
   },
   channels: {
     getByChannel,
-    grabUserChannels
+    grabUserChannels,
+    createChannels
   },
   messages: {
     createMessage
