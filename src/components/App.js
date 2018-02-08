@@ -9,6 +9,14 @@ import { connect } from 'react-redux';
 import SlackHome from './SlackHome'
 
 class App extends Component {
+
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.fetchUser();
+    }
+  }
+
+  
   render() {
     return (
       <div className="App">

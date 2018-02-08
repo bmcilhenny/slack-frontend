@@ -53,9 +53,17 @@ export const addMessage = (message) => dispatch => {
 }
 
 export const addChannel = (channel) => dispatch => {
-  dispatch({ type: 'ADD_CHANNEL_TO_USERS', channel})
+  dispatch({ type: 'ADD_CHANNEL_TO_USER', channel})
+}
+
+export const addDM = (dm) => dispatch => {
+  dispatch({ type: 'ADD_DM_TO_USER', dm})
 }
 
 export const updateActiveChannel = (id) => dispatch => {
   dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
+}
+
+export const createUserOptionsForForm = () => dispatch => {
+  dispatch({type: 'GRAB_ALL_USERS'})
 }

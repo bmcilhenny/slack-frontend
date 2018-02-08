@@ -5,6 +5,7 @@ import * as actions from '../actions'
 import NewMessageForm from './NewMessageForm';
 import Message from './Message'
 import { Icon, Form } from 'semantic-ui-react';
+import { adapter } from '../adapter';
 
 class ChannelContainer extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class ChannelContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.grabActiveChannel(4)
+    this.props.grabActiveChannel(38)
   }
 
   renderChannelMessages() {
@@ -28,8 +29,9 @@ class ChannelContainer extends React.Component {
     return (
       <div>
         <div id="fixedChannelHeader">
-          <h3  className="channelName">{activeChannel ? activeChannel.name : null}
-            <Icon name="users" disabled>{activeChannel ? activeChannel.users.length : null}</Icon>
+          <h3  className="channelName">{activeChannel.channel_type === 'CHANNEL' ? activeChannel.name : adapter.helpers.nameTheDM(activeChannel.users, this.props.currentUser)}
+            <Icon name="users" disabled style={{marginLeft: '10px'}}>{activeChannel.users.length}</Icon>
+            <h3 className="channelDescription">{activeChannel.channel_type === 'CHANNEL' ?  `# ${activeChannel.details}` : null}</h3>
             <Form id="floatedChannelSearchBar">
               <Form.Group >
                 <Form.Input placeholder='Jump to...' id="message"/>
@@ -46,7 +48,6 @@ class ChannelContainer extends React.Component {
 
   render() {
     console.log("Inside the Channel Container render", this.props)
-    // const channelMessages = this.props.channelMessages.map(message => <Message message={message} key={message.id} id={message.id}/>)
     return (
       <div >
         <div className="channelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>

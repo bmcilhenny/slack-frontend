@@ -1,19 +1,35 @@
 import React from 'react'
 import { Button, Header, Image, Modal, Icon , Form, Checkbox, Divider, Dropdown } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import { adapter} from '../adapter';
+
 
 let friendOptions = [
   {
-    text: 'Jenny Hess',
-    value: 'Jenny Hess',
-    image: { avatar: true, src: 'https://pr.network/media/cache/profile_thumb/ec/0c/6500ead9b62a4f9af680214c1bc0.jpeg' },
+    text: 'Brendan McIlhenny',
+    value: '14',
+    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAt7AAAAJDQyNzQ2MTc3LTI0OWYtNDU2NC1hYTU3LWE1OWQ2MjU0NTM4NA.jpg' },
+  },
+  {
+    text: 'Greg Driza',
+    value: '15',
+    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuZAAAAJDExZTU2MTViLThjNmEtNGYzNy04ODZiLTQ2ZjU1ZjMwMDY1NA.jpg' },
+  },
+  {
+    text: 'Tim Campbell',
+    value: '16',
+    image: { avatar: true, src: 'https://flatiron-v3-production.imgix.net/tim-campbell-headshot.jpg?h=240&w=240&facepad=2&fit=facearea&ixlib=imgixjs-3.3.0' },
   }
 ]
+
 class NewDMModal extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      modalOpen: false
+      modalOpen: false,
+      users: []
     }
   }
 
@@ -24,32 +40,55 @@ class NewDMModal extends React.Component {
     this.setState({ modalOpen: false })
   }
 
+  handleChange = event => {
+    let newVal = event.target.id
+    this.setState({[newVal]: event.target.value})
+  }
+
+  createDM = event => {
+    event.preventDefault();
+    console.log('clicked')
+    if (this.state.users.length >= 2) {
+      adapter.channels.createChannel({owner_id: this.props.currentUser.id, users: this.state.users, channel_type: 'DM', private: true})
+      .then(anything => this.close())
+    }
+  }
+
+  handleDropDownChange = (event, data) => {
+    this.setState({
+      users: data.value
+    })
+  }
+
   render() {
     console.log(this.state)
     return (
       <Modal
-        trigger={<Icon name='add circle' onClick={this.handleOpen}></Icon>}
+        trigger={<Icon inverted name='add circle' onClick={this.handleOpen} style={{position: 'relative', float: 'right'}}></Icon>}
         open={this.state.modalOpen}
         onClose={this.close}>
         <Header icon='users' content='Create a new DM.' />
         <Modal.Content>
-          <Form onSubmit={this.createMessage}>
-            <Form.Input placeholder='Enter here...' id="message" onChange={this.handleChange}/>
+          <Form>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Friend' fluid multiple search selection options={friendOptions} />
+            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={friendOptions} onChange={this.handleDropDownChange}/>
           </Form>
         </Modal.Content>
         <Modal.Actions>
           <Button color='red' onClick={this.close} >
             <Icon name='remove' /> Cancel
           </Button>
-          <Button color='green'>
+          <Button color='green'onClick={this.createDM}>
             <Icon name='checkmark' /> Confirm
             </Button>
-          </Modal.Actions>
-        </Modal>
+        </Modal.Actions>
+      </Modal>
     )
   }
 }
 
-export default NewDMModal;
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+})
+
+export default connect(mapStateToProps, actions)(NewDMModal);

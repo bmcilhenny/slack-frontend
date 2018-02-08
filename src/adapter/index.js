@@ -13,7 +13,6 @@ const getUsers = () => {
 
 const getWithToken = url => {
   const token = localStorage.getItem('token');
-  debugger
   return fetch(url, {
     headers: { Authorization: token }
   }).then(res => res.json());
@@ -52,9 +51,10 @@ const grabUserChannels = user_id => {
   return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels)
 }
 
-const createChannels = channel => {
-  debugger;
-  return fetch(`${API_ROOT}/channel`, {
+const createChannel = channel => {
+  console.log(channel)
+  // debugger;
+  return fetch(`${API_ROOT}/channels`, {
     method: 'POST',
     headers,
     body: JSON.stringify(channel)
@@ -69,6 +69,21 @@ const createMessage = message => {
   })
 }
 
+const arrayContainsObj = (obj, array) => {
+  var i;
+  for (i = 0; i < array.length; i++) {
+    if (array[i].id === obj.id) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const nameTheDM = (channelUsers, currentUserID) => {
+  let filteredUsers = channelUsers.filter(user => user.id !== currentUserID);
+  return filteredUsers.map( user => user.display_name).join(', ')
+}
+
 export const adapter = {
   auth: {
     login,
@@ -81,9 +96,13 @@ export const adapter = {
   channels: {
     getByChannel,
     grabUserChannels,
-    createChannels
+    createChannel
   },
   messages: {
     createMessage
+  },
+  helpers: {
+    arrayContainsObj,
+    nameTheDM
   }
 };

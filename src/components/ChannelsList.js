@@ -5,6 +5,7 @@ import * as actions from '../actions'
 import { Form, Input } from 'semantic-ui-react';
 import NewChannelModal from './NewChannelModal';
 import NewDMModal from './NewDMModal';
+import { adapter } from '../adapter';
 
 class ChannelsList extends React.Component {
   constructor(props) {
@@ -28,13 +29,17 @@ class ChannelsList extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     // this.props.grabActiveChannel(this.props.activeChannel)
     this.props.grabUserChannels(this.props.currentUser.id)
   }
 
   renderChannels() {
     console.log("Inside the channel list component", this.props)
-    let userChannels = this.props.channels.map(channel => <a onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className="customBullet" id={channel.id}>{channel.name} </li></a>)
+
+    let filteredUserChannels = this.props.channels.filter(channel => channel.channel_type === 'CHANNEL').map(channel => <a onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className="customBullet" id={channel.id}>{channel.name} </li></a>)
+    let filteredUserDMs = this.props.channels.filter(channel => channel.channel_type === 'DM').map(channel => <a onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className="customBullet" id={channel.id}>{adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a>)
+
     return (
       <div>
         <h2>{this.props.currentUser.display_name}</h2>
@@ -43,11 +48,14 @@ class ChannelsList extends React.Component {
             <Form.Input fluid placeholder='Jump to...' id="message"/>
           </Form.Group>
         </Form>
-        <h3>Channels < NewChannelModal /></h3>
+        <h3>Channels < NewChannelModal/></h3>
         <ul>
-        {userChannels}
+        {filteredUserChannels}
         </ul>
         <h3>Direct Message < NewDMModal /></h3>
+        <ul>
+        {filteredUserDMs}
+        </ul>
       </div>
     );
   }

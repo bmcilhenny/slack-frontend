@@ -64,6 +64,13 @@ a:link {
   position: relative;
   padding-top: 300px;
 }
+
+.channelDescription {
+  font-style: italic;
+  font-weight: 300;
+  padding: 0.1em;
+  color: #C9C9C9;
+}
 /* #floatedChannelSearchBar {
   position: relative;
   float: right;

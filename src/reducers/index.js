@@ -33,6 +33,10 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
         return {...state, channels: [...state.channels.slice(0, index), updatedChannel , ...state.channels.slice(index + 1.0
         )]}
       }
+    case 'ADD_CHANNEL_TO_USER':
+      // debugger;
+      let copiedChannel = [...state.channels];
+      return {...state, channels: [...copiedChannel, action.channel]}
     default:
       return state;
   }
