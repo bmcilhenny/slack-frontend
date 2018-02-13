@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions'
 import NewMessageForm from './NewMessageForm';
 import Message from './Message'
-import { Icon, Form } from 'semantic-ui-react';
+import { Icon, Form, Divider } from 'semantic-ui-react';
 import { adapter } from '../adapter';
 
 class ChannelContainer extends React.Component {
@@ -16,14 +16,24 @@ class ChannelContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.grabActiveChannel(38)
+    this.props.grabActiveChannel(84)
   }
 
   renderChannelMessages() {
     let activeChannel = this.props.channels.find(channel => channel.id === this.props.activeChannelID)
-    let activeChannelMessages = null
-    if (activeChannel && activeChannel.messages.length) {
-      activeChannelMessages = activeChannel.messages.map(message => <li key={message.id} id={message.id}> <span className="bold">{message.user.display_name}</span>: {message.content} </li>)
+    let activeChannelReadMessages = null;
+    let activeChannelUnReadMessages = null
+
+
+    if (activeChannel && activeChannel.readMessages.length) {
+      debugger
+      activeChannelReadMessages = activeChannel.readMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
+    }
+
+    if (activeChannel && activeChannel.unreadMessages.length) {
+      debugger
+      activeChannelReadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelReadMessages.unshift(<Divider horizontal>New Messages</Divider>)
     }
 
     return (
@@ -40,7 +50,8 @@ class ChannelContainer extends React.Component {
           </h3>
         </div>
         <ul className="messages">
-          {activeChannelMessages}
+          {activeChannelReadMessages}
+          {activeChannelUnReadMessages}
         </ul>
       </div>
     );

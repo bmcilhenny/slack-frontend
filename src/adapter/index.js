@@ -1,4 +1,4 @@
-const API_ROOT = `http://localhost:3000/api/v1`;
+const API_ROOT = `http://localhost:3000/api/v1/teams/4`;
 
 const headers = {
   'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const grabUserChannels = user_id => {
 
 const createChannel = channel => {
   console.log(channel)
-  // debugger;
+  debugger;
   return fetch(`${API_ROOT}/channels`, {
     method: 'POST',
     headers,
@@ -84,6 +84,14 @@ const nameTheDM = (channelUsers, currentUserID) => {
   return filteredUsers.map( user => user.display_name).join(', ')
 }
 
+const updateLastSeen = (channel) => {
+  return fetch(`${API_ROOT}/update_last_seen`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(channel)
+  })
+}
+
 export const adapter = {
   auth: {
     login,
@@ -96,7 +104,8 @@ export const adapter = {
   channels: {
     getByChannel,
     grabUserChannels,
-    createChannel
+    createChannel,
+    updateLastSeen
   },
   messages: {
     createMessage

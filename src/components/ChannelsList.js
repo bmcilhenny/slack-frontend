@@ -25,7 +25,8 @@ class ChannelsList extends React.Component {
   }
 
   handleChannelClick = (event) => {
-    this.props.updateActiveChannel(event.target.id)
+    this.props.updateActiveChannel(event.target.id);
+    adapter.channels.updateLastSeen({user_id: this.props.currentUser.id, channel_id: event.target.id})
   }
 
   componentDidMount() {
@@ -42,7 +43,8 @@ class ChannelsList extends React.Component {
 
     return (
       <div>
-        <h2>{this.props.currentUser.display_name}</h2>
+        <h2>{this.props.currentUser.team.name}</h2>
+        <h3>{this.props.currentUser.display_name}</h3>
         <Form>
           <Form.Group widths='equal'>
             <Form.Input fluid placeholder='Jump to...' id="message"/>

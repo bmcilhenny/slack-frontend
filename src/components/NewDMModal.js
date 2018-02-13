@@ -8,17 +8,17 @@ import { adapter} from '../adapter';
 let friendOptions = [
   {
     text: 'Brendan McIlhenny',
-    value: '14',
+    value: '26',
     image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAt7AAAAJDQyNzQ2MTc3LTI0OWYtNDU2NC1hYTU3LWE1OWQ2MjU0NTM4NA.jpg' },
   },
   {
     text: 'Greg Driza',
-    value: '15',
+    value: '27',
     image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuZAAAAJDExZTU2MTViLThjNmEtNGYzNy04ODZiLTQ2ZjU1ZjMwMDY1NA.jpg' },
   },
   {
     text: 'Tim Campbell',
-    value: '16',
+    value: '28',
     image: { avatar: true, src: 'https://flatiron-v3-production.imgix.net/tim-campbell-headshot.jpg?h=240&w=240&facepad=2&fit=facearea&ixlib=imgixjs-3.3.0' },
   }
 ]

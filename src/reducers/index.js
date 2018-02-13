@@ -3,8 +3,8 @@ import { combineReducers } from 'redux';
 const authReducer = (state = { currentUser: {}}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
-    const { id, username, display_name } = action.user;
-      return { ...state, currentUser: { id, username, display_name } };
+    const { id, username, display_name, team } = action.user;
+      return { ...state, currentUser: { id, username, display_name, team } };
     case 'LOGOUT_USER':
       return { ...state, currentUser: {} };
     default:
@@ -27,9 +27,10 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       let copiedChannels = [...state.channels]
       let foundChannel = copiedChannels.find(channel => channel.id === action.message.message.channel_id);
       let index = state.channels.indexOf(foundChannel)
-      let updatedMessages = [...foundChannel.messages, action.message.message]
-      let updatedChannel = {...foundChannel, messages: updatedMessages};
+      let updatedMessages = [...foundChannel.unreadMessages, action.message]
+      let updatedChannel = {...foundChannel, unreadMessages: updatedMessages};
       if (foundChannel) {
+        debugger;
         return {...state, channels: [...state.channels.slice(0, index), updatedChannel , ...state.channels.slice(index + 1.0
         )]}
       }

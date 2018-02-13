@@ -49,6 +49,7 @@ export const grabUserChannels = (user_id) => dispatch => {
 
 
 export const addMessage = (message) => dispatch => {
+  debugger;
   dispatch({ type: 'ADD_MESSAGE_TO_CHANNEL', message})
 }
 
