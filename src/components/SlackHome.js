@@ -80,38 +80,8 @@ class SlackHome extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   channels: state.channel.channels,
-  activeChannelID: state.channel.activeChannelID
+  activeChannelID: state.channel.activeChannelID,
+  loggedIn: !!state.auth.currentUser.id
 })
 
 export default withAuth(connect(mapStateToProps, actions)(SlackHome));
-
-
-// handleSocketResponse = data => {
-//   debugger;
-//   console.log("Inside the handleSocketResponse", data)
-//   switch (data.type) {
-//     case 'NEW_MESSAGE':
-//       this.props.addMessage(data.payload);
-//       break;
-//     case 'NEW_CHANNEL':
-//       let currentUser = this.props.currentUser;
-//       let userMemberOfChannel = adapter.helpers.arrayContainsObj(currentUser, data.payload.channel.users)
-//       if (userMemberOfChannel) {
-//         this.props.addChannel(data.payload.channel);
-//       }
-//       break;
-//     case 'NEW_DM':
-//       let
-//        = this.props.currentUser;
-//       let userMemberOfDM = adapter.helpers.arrayContainsObj(currentUser2, data.payload.channel.users)
-//       if (userMemberOfDM) {
-//         this.props.addDM(data.payload.channel);
-//       }
-//       break;
-//     case 'NEW_USER':
-//       this.props.addUser(data.payload);
-//       break;
-//     default:
-//       console.log(data);
-//   }
-// };

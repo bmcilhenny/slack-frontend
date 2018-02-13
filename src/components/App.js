@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Login from './Login';
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 import Signup from './Signup';
 import { Switch, Route, Link } from 'react-router-dom';
 import * as actions from '../actions';
@@ -16,11 +16,10 @@ class App extends Component {
     }
   }
 
-  
+
   render() {
     return (
       <div className="App">
-        <Navbar />
         <div id="content">
           <Switch>
             <Route exact path="/login" render = {() => <Login /> }>

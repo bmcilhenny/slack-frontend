@@ -4,25 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { adapter} from '../adapter';
 
-
-let friendOptions = [
-  {
-    text: 'Brendan McIlhenny',
-    value: '26',
-    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAt7AAAAJDQyNzQ2MTc3LTI0OWYtNDU2NC1hYTU3LWE1OWQ2MjU0NTM4NA.jpg' },
-  },
-  {
-    text: 'Greg Driza',
-    value: '27',
-    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuZAAAAJDExZTU2MTViLThjNmEtNGYzNy04ODZiLTQ2ZjU1ZjMwMDY1NA.jpg' },
-  },
-  {
-    text: 'Tim Campbell',
-    value: '28',
-    image: { avatar: true, src: 'https://flatiron-v3-production.imgix.net/tim-campbell-headshot.jpg?h=240&w=240&facepad=2&fit=facearea&ixlib=imgixjs-3.3.0' },
-  }
-]
-
 class NewDMModal extends React.Component {
   constructor() {
     super()
@@ -71,7 +52,7 @@ class NewDMModal extends React.Component {
         <Modal.Content>
           <Form>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={friendOptions} onChange={this.handleDropDownChange}/>
+            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={adapter.helpers.populateModalsWithTeammateOptions(this.props.team)} onChange={this.handleDropDownChange}/>
           </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -88,7 +69,8 @@ class NewDMModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  team: state.channel.team
 })
 
 export default connect(mapStateToProps, actions)(NewDMModal);

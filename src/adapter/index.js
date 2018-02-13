@@ -113,6 +113,11 @@ const updateLastSeen = (channel) => {
   })
 }
 
+const populateModalsWithTeammateOptions = (team) => {
+  let reconfiguredTeam = team.map(user => ({text: user.display_name, value: user.id, image: ({ avatar: true, src: user.image_url})}))
+  return reconfiguredTeam
+}
+
 export const adapter = {
   auth: {
     login,
@@ -135,6 +140,7 @@ export const adapter = {
     arrayContainsObj,
     nameTheDM,
     isUserOnline,
-    labelTheDM
+    labelTheDM,
+    populateModalsWithTeammateOptions
   }
 };

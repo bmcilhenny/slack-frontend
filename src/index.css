@@ -6,7 +6,7 @@ body {
 
 #content {
   position: absolute;
-  padding-top: 50px;
+  /* padding-top: 50px; */
   height: 100%;
   width: 100%
 }
@@ -21,27 +21,29 @@ ul {
 	list-style: none;
 	margin-left: 0;
 	padding-left: 1.2em;
+  padding-top: 5%;
 }
 
 .channelContainerStyling {
-  vertical-align: bottom;
+  /* vertical-align: bottom;
   padding:0;
-  overflow: scroll; overflow-x:hidden;
-  height:90%;
-  top: 40px;
+  overflow: scroll; overflow-x:hidden; */
+  /* height:90%; */
+  width: 100%;
+  top: 200px;
 }
 
 #fixedChannelHeader {
   /* float: left; */
-  border-bottom: 4mm ridge rgb(170, 50, 220, .6);
+  border: 4mm ridge rgb(170, 50, 220, .6);
   vertical-align: middle;
   background-color: white;
   z-index: 1;
   padding-left: 1em;
-  padding-top: 1em;
   position: fixed; /* Set the navbar to fixed position */
-  top: 50px; /* Position the navbar at the top of the page */
+  /* top: 50px; /* Position the navbar at the top of the page */ */
   width: 100%;
+  margin-bottom: 1em;
 }
 
 .bold {
@@ -58,11 +60,6 @@ a:hover {
 
 a:link {
     color: white !important;
-}
-
-.messages {
-  position: relative;
-  padding-top: 300px;
 }
 
 .channelDescription {
@@ -99,4 +96,12 @@ a:link {
   margin-top: 0.3em;
   margin-left: 0;
   font-weight: 300;
+}
+
+.messages {
+  padding-top: 160px;
+}
+
+.channelName {
+  /* border-bottom: 5px solid red !important; */
 }

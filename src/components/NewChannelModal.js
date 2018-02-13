@@ -4,23 +4,23 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { adapter} from '../adapter';
 
-let friendOptions = [
-  {
-    text: 'Brendan McIlhenny',
-    value: '26',
-    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAt7AAAAJDQyNzQ2MTc3LTI0OWYtNDU2NC1hYTU3LWE1OWQ2MjU0NTM4NA.jpg' },
-  },
-  {
-    text: 'Greg Driza',
-    value: '27',
-    image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuZAAAAJDExZTU2MTViLThjNmEtNGYzNy04ODZiLTQ2ZjU1ZjMwMDY1NA.jpg' },
-  },
-  {
-    text: 'Tim Campbell',
-    value: '28',
-    image: { avatar: true, src: 'https://flatiron-v3-production.imgix.net/tim-campbell-headshot.jpg?h=240&w=240&facepad=2&fit=facearea&ixlib=imgixjs-3.3.0' },
-  }
-]
+// let friendOptions = [
+//   {
+//     text: 'Brendan McIlhenny',
+//     value: '26',
+//     image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAt7AAAAJDQyNzQ2MTc3LTI0OWYtNDU2NC1hYTU3LWE1OWQ2MjU0NTM4NA.jpg' },
+//   },
+//   {
+//     text: 'Greg Driza',
+//     value: '27',
+//     image: { avatar: true, src: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAuZAAAAJDExZTU2MTViLThjNmEtNGYzNy04ODZiLTQ2ZjU1ZjMwMDY1NA.jpg' },
+//   },
+//   {
+//     text: 'Tim Campbell',
+//     value: '28',
+//     image: { avatar: true, src: 'https://flatiron-v3-production.imgix.net/tim-campbell-headshot.jpg?h=240&w=240&facepad=2&fit=facearea&ixlib=imgixjs-3.3.0' },
+//   }
+// ]
 
 class NewChannelModal extends React.Component {
   constructor() {
@@ -82,7 +82,7 @@ class NewChannelModal extends React.Component {
             <Form.Input placeholder='Enter channel name here...' id="name" onChange={this.handleChange} value={this.state.name}/>
             <Form.Input placeholder='Enter channel details here...' id="details" onChange={this.handleChange} value={this.state.details}/>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Teammate(s)' fluid multiple search selection options={friendOptions} onChange={this.handleDropDownChange} />
+            <Dropdown placeholder='Select Teammate(s)' fluid multiple search selection options={adapter.helpers.populateModalsWithTeammateOptions(this.props.team)} onChange={this.handleDropDownChange} />
           </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -108,15 +108,8 @@ class NewChannelModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  team: state.channel.team
 })
 
 export default connect(mapStateToProps, actions)(NewChannelModal);
-
-// <Form.Checkbox toggle style={{position: 'relative', float: 'left', paddingLeft: '5%'}} id="privateChannel" label={<label>Make this channel private (only an owner can invite teammates to the channel)</label>} onChange={this.toggle} checked={this.state.checked}/>
-// <Button color='red' onClick={this.close} style={{float: 'clear'}} >
-//   <Icon name='remove' /> Cancel
-// </Button>
-// <Button color='green' onClick={this.createChannel} style={{float: 'clear'}}>
-//   <Icon name='checkmark' /> Confirm
-// </Button>
