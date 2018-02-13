@@ -71,15 +71,32 @@ a:link {
   padding: 0.1em;
   color: #C9C9C9;
 }
-/* #floatedChannelSearchBar {
-  position: relative;
-  float: right;
-  overflow: hidden;
-} */
 
-/* .fixedNewMessage {
-  height: 10%;
-  background-color: white;
+.read {
+  color: rgb(206, 206, 206) !important;
+
+}
+
+.unread {
+  color: white !important;
+}
+
+.active {
+  background-color: #2B9B8A !important;
+  margin-left: -10%;
+  padding: 0.5em 1em;
+}
+
+.slackPurple {
+  background-color: #51354B;
+}
+
+.white {
   color: white;
-  text-align: center;
-} */
+}
+
+.nameLabel {
+  margin-top: 0.3em;
+  margin-left: 0;
+  font-weight: 300;
+}

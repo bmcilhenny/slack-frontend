@@ -68,3 +68,12 @@ export const updateActiveChannel = (id) => dispatch => {
 export const createUserOptionsForForm = () => dispatch => {
   dispatch({type: 'GRAB_ALL_USERS'})
 }
+
+export const userOnline = team => dispatch => {
+  dispatch({type: 'USER_ONLINE', team})
+}
+
+export const userOffline = team => dispatch => {
+  debugger;
+  dispatch({type: 'USER_OFFLINE', team})
+}

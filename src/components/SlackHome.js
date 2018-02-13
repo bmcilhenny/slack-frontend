@@ -34,7 +34,6 @@ class SlackHome extends React.Component {
       case 'NEW_CHANNEL':
         let userMemberOfChannel = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
         let userOwnerOfNewChannel = this.props.currentUser.id === data.payload.channel.owner.id
-
         if (userMemberOfChannel && userOwnerOfNewChannel) {
           this.props.addChannel(data.payload.channel);
           this.props.updateActiveChannel(data.payload.channel.id)
@@ -51,6 +50,11 @@ class SlackHome extends React.Component {
       case 'NEW_USER':
         this.props.addUser(data.payload);
         break;
+      case 'USER_ONLINE':
+        this.props.userOnline(data.payload)
+        break;
+      case 'USER_OFFLINE':
+        this.props.userOffline(data.payload)
       default:
         console.log(data);
     }
@@ -61,10 +65,10 @@ class SlackHome extends React.Component {
     return (
       <div className="ui padded equal height grid">
         <ActionCable
-          channel={{ channel: 'ChannelChannel', last_seen: Date.now(), activeChannelID: this.props.ActiveChannelID}}
+          channel={{ channel: 'ChannelChannel', current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
           onReceived={this.handleSocketResponse}
         />
-        <div className="three wide column violet"><ChannelsList /></div>
+      <div className="three wide column slackPurple " ><ChannelsList /></div>
         <div className="thirteen wide column"><ChannelContainer /></div>
       </div>
 

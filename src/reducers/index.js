@@ -13,7 +13,7 @@ const authReducer = (state = { currentUser: {}}, action) => {
 };
 
 
-const channelsReducer = (state = {activeChannelID: '', channels: [], loading: false}, action) => {
+const channelsReducer = (state = {activeChannelID: '', channels: [], loading: false, team: []}, action) => {
   switch (action.type) {
     case 'ASYNC_START':
       return { ...state, loading: true }
@@ -38,6 +38,13 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       // debugger;
       let copiedChannel = [...state.channels];
       return {...state, channels: [...copiedChannel, action.channel]}
+    case 'USER_ONLINE':
+      debugger;
+      return {...state, team: action.team.team.users}
+      debugger;
+    case 'USER_OFFLINE':
+      debugger;
+      return {...state, team: action.team.team.users}
     default:
       return state;
   }

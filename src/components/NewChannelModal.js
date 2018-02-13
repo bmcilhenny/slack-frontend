@@ -72,7 +72,7 @@ class NewChannelModal extends React.Component {
     console.log(this.state)
     return (
       <Modal
-        trigger={<Icon name='add circle' inverted onClick={this.handleOpen} style={{position: 'relative', float: 'right'}}></Icon>}
+        trigger={<Icon name='add circle' inverted="true" onClick={this.handleOpen} style={{position: 'relative', float: 'right'}}></Icon>}
         open={this.state.modalOpen}
         onClose={this.close}
         >

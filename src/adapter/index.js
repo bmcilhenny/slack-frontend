@@ -79,9 +79,30 @@ const arrayContainsObj = (obj, array) => {
   return false;
 }
 
+const isUserOnline = (userID, array) => {
+  let userObj = array.find(user => user.id === userID);
+  if (userObj.online === true) {
+    return true
+  }
+  else {
+    return false;
+  }
+}
+
 const nameTheDM = (channelUsers, currentUserID) => {
   let filteredUsers = channelUsers.filter(user => user.id !== currentUserID);
   return filteredUsers.map( user => user.display_name).join(', ')
+}
+
+const labelTheDM = (channelUsers, team, currentUserID) => {
+  let filteredUser = channelUsers.filter(user => user.id !== currentUserID)
+  debugger
+  let filteredTeam = team.filter(user => user.id === filteredUser[0].id);
+  if (filteredTeam[0].online) {
+    return true
+  } else {
+    return false
+  }
 }
 
 const updateLastSeen = (channel) => {
@@ -112,6 +133,8 @@ export const adapter = {
   },
   helpers: {
     arrayContainsObj,
-    nameTheDM
+    nameTheDM,
+    isUserOnline,
+    labelTheDM
   }
 };

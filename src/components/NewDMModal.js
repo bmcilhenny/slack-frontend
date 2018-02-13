@@ -48,7 +48,7 @@ class NewDMModal extends React.Component {
   createDM = event => {
     event.preventDefault();
     console.log('clicked')
-    if (this.state.users.length >= 2) {
+    if (this.state.users.length === 2) {
       adapter.channels.createChannel({owner_id: this.props.currentUser.id, users: this.state.users, channel_type: 'DM', private: true})
       .then(anything => this.close())
     }
