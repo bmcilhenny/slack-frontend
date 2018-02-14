@@ -30,21 +30,29 @@ class ChannelsList extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.grabActiveChannel(this.props.activeChannel)
+    debugger;
     this.props.grabUserChannels(this.props.currentUser.id)
+    // this.props.grabActiveChannel(this.props.activeChannel)
   }
 
-  // componentWillUpdate(nextProps) {
-  //       if (nextProps.activeChannelID !== this.props.activeChannelID) {
-  //         this.props.updateReadMessages(this.props.activeChannelID)
-  //       }
-  //   }
+  componentWillUpdate(nextProps) {
+        if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
+          debugger;
+          this.props.updateLastChannelReadMessages(this.props.activeChannelID)
+        }
+    }
 
   renderChannels() {
     console.log("Inside the channel list component", this.props)
     debugger;
-    let filteredUserChannels = this.props.channels.filter(channel => channel.channel_type === 'CHANNEL').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a>)
-    let filteredUserDMs = this.props.channels.filter(channel => channel.channel_type === 'DM').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a>)
+
+    let filteredUserChannels = null;
+    let filteredUserDMs = null;
+
+    if (this.props.channels.length) {
+      filteredUserChannels = this.props.channels.filter(channel => channel.channel_type === 'CHANNEL').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a>)
+      filteredUserDMs = this.props.channels.filter(channel => channel.channel_type === 'DM').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a>)
+    }
 
     return (
       <div>

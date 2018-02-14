@@ -43,7 +43,11 @@ class SlackHome extends React.Component {
         break;
       case 'NEW_DM':
         let userMemberOfDM = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
-        if (userMemberOfDM) {
+        let userOwnerOfNewDM = this.props.currentUser.id === data.payload.channel.owner.id
+        if (userMemberOfDM && userOwnerOfNewDM) {
+          this.props.addChannel(data.payload.channel);
+          this.props.updateActiveChannel(data.payload.channel.id)
+        } else if (userOwnerOfNewDM) {
           this.props.addChannel(data.payload.channel);
         }
         break;

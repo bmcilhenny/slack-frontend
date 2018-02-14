@@ -99,9 +99,13 @@ a:link {
 }
 
 .messages {
-  padding-top: 160px;
+  padding-top: 200px;
 }
 
 .channelName {
   /* border-bottom: 5px solid red !important; */
+}
+
+#signUpLink {
+  color: blue !important;
 }

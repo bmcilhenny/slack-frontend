@@ -18,14 +18,28 @@ export const loginUser = (username, password, history) => dispatch => {
   });
 };
 
+// export const signup = user => dispatch => {
+//   dispatch({ type: 'ASYNC_START' });
+//   adapter.user.signup(user).then(res => {
+//     if (res.errors) {
+//       dispatch({ type: 'ASYNC_ERROR_USER', data: res.errors });
+//     } else {
+//       dispatch({ type: 'SIGNEDUP' });
+//     }
+//   });
+// };
+
 export const logoutUser = () => {
+  console.log("CLICKED")
   localStorage.removeItem('token');
   return { type: 'LOGOUT_USER' };
 };
 
 
 export const grabActiveChannel = (channel_id) => dispatch => {
+  debugger
   adapter.channels.getByChannel(channel_id).then(channel => {
+    debugger
     console.log("Just finished fething the active channel", channel)
     dispatch({ type: 'SET_CURRENT_CHANNEL', channel})
     localStorage.setItem('activeChannel', channel_id);
@@ -40,11 +54,6 @@ export const grabUserChannels = (user_id) => dispatch => {
     localStorage.setItem('userChannels', channels);
       })
     }, 1000);
-
-  // adapter.channels.grabUserChannels(user_id).then(channels => {
-  //   console.log("Just finished fething", channels)
-  //   dispatch({ type: 'GRAB_ALL_USER_CHANNELS', channels})
-  //   localStorage.setItem('userChannels', channels);
 }
 
 
@@ -62,6 +71,7 @@ export const addDM = (dm) => dispatch => {
 }
 
 export const updateActiveChannel = (id) => dispatch => {
+  debugger;
   dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
 }
 

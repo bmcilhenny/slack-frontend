@@ -33,11 +33,12 @@ const login = data => {
 
 const signup = data => {
 
-  return fetch(`${API_ROOT}/auth`, {
+  return fetch(`${API_ROOT}/users`, {
     method: 'POST',
     headers,
     body: JSON.stringify(data)
-  }).then(res => res.json());
+  }).then(res => res.json())
+  .catch(() => window.alert('ERROR'))
 };
 
 
@@ -99,7 +100,7 @@ const labelTheDM = (channelUsers, team, currentUserID) => {
   let filteredUser = channelUsers.filter(user => user.id !== currentUserID)
   debugger
   let filteredTeam = team.filter(user => user.id === filteredUser[0].id);
-  if (filteredTeam[0].online) {
+  if (filteredTeam && filteredTeam[0].online) {
     return true
   } else {
     return false

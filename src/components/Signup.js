@@ -1,5 +1,8 @@
 import React from 'react';
 import {adapter} from '../adapter';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import { Link, withRouter } from 'react-router-dom';
 
 class Signup extends React.Component {
   constructor() {
@@ -9,7 +12,9 @@ class Signup extends React.Component {
       fields: {
         username: '',
         password: '',
-        confirmPassword: ''
+        password_confirmation: '',
+        display_name: '',
+        image_url: ''
       }
     };
   }
@@ -26,14 +31,21 @@ class Signup extends React.Component {
       if (data.error) {
         this.setState({ error: true });
       } else {
-        this.props.handleSignup(data);
-        this.props.history.push('/');
+        this.props.history.push('/login');
       }
+      this.setState({
+        username: '',
+        password: '',
+        password_confirmation: '',
+        display_name: '',
+        image_url: ''
+      })
     });
   };
 
   render() {
     const { fields } = this.state;
+    console.log(fields)
     return (
       <div>
         {this.state.error ? <h1>Try Again</h1> : null}
@@ -45,6 +57,24 @@ class Signup extends React.Component {
                 name="username"
                 placeholder="username"
                 value={fields.username}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="ui field">
+              <label>Display Name</label>
+              <input
+                name="display_name"
+                placeholder="Your Slack display name"
+                value={fields.display_name}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="ui field">
+              <label>Profile Image</label>
+              <input
+                name="image_url"
+                placeholder="Enter a url for your profile image"
+                value={fields.image_url}
                 onChange={this.handleChange}
               />
             </div>
@@ -61,10 +91,10 @@ class Signup extends React.Component {
             <div className="ui field">
               <label>Confirm Password</label>
               <input
-                name="passwordConfirmation"
+                name="password_confirmation"
                 type="password"
                 placeholder="Reenter password"
-                value={fields.passwordConfirmation}
+                value={fields.password_confirmation}
                 onChange={this.handleChange}
               />
             </div>
@@ -78,4 +108,30 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(connect(null, actions)(Signup));
+
+
+
+
+//
+// handleSubmit = e => {
+//   e.preventDefault();
+//
+//   const user = {
+//     username: this.state.username,
+//     password: this.state.password,
+//     password_confirmation: this.state.password_confirmation,
+//     display_name: this.state.display_name,
+//     image_url: this.state.image_url,
+//     team_id: '4'
+//   }
+//
+//   this.props.signup(user);
+//   this.setState({
+//     username: '',
+//     password: '',
+//     password_confirmation: '',
+//     display_name: '',
+//     image_url: '',
+//   })
+// };

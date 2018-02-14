@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions'
 import NewMessageForm from './NewMessageForm';
 import Message from './Message'
-import { Icon, Form, Divider } from 'semantic-ui-react';
+import { Icon, Form, Divider, Button } from 'semantic-ui-react';
 import { adapter } from '../adapter';
 
 class ChannelContainer extends React.Component {
@@ -16,13 +16,24 @@ class ChannelContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.grabActiveChannel(84)
+    // {this.props.channels.length ? this.props.grabActiveChannel(this.props.channels[0].id) : null}
+  }
+
+  componentWillUpdate() {
+    this.props.channels.length && !this.props.activeChannelID ? this.props.grabActiveChannel(this.props.channels[0].id) : null
   }
 
   renderChannelMessages() {
     let activeChannel = this.props.channels.find(channel => channel.id === this.props.activeChannelID)
+    debugger;
+    // if (activeChannel) {
+    //
+    // } else {
+    //   activeChannel = null;
+    // }
+
     let activeChannelReadMessages = null;
-    let activeChannelUnReadMessages = null
+    let activeChannelUnreadMessages = null
 
 
     if (activeChannel && activeChannel.readMessages.length) {
@@ -32,14 +43,16 @@ class ChannelContainer extends React.Component {
 
     if (activeChannel && activeChannel.unreadMessages.length) {
       debugger
-      activeChannelReadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
-      activeChannelReadMessages.unshift(<Divider horizontal>New Messages</Divider>)
+      activeChannelUnreadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelUnreadMessages.unshift(<Divider horizontal>New Messages</Divider>)
     }
-
-    return (
-      <div>
-        <div id="fixedChannelHeader">
-          <h3  className="channelName">{activeChannel.channel_type === 'CHANNEL' ? activeChannel.name : adapter.helpers.nameTheDM(activeChannel.users, this.props.currentUser)}
+    if (activeChannel) {
+      debugger;
+      return (
+        <div>
+          <div id="fixedChannelHeader">
+            <h3  className="channelName">{activeChannel.channel_type === 'CHANNEL' ? activeChannel.name : adapter.helpers.nameTheDM(activeChannel.users, this.props.currentUser)}
+            </h3>
             <Icon name="users" disabled style={{marginLeft: '10px'}}>{activeChannel.users.length}</Icon>
             <h3 className="channelDescription">{activeChannel.channel_type === 'CHANNEL' ?  `# ${activeChannel.details}` : null}</h3>
             <Form id="floatedChannelSearchBar">
@@ -47,33 +60,54 @@ class ChannelContainer extends React.Component {
                 <Form.Input placeholder='Jump to...' id="message"/>
               </Form.Group>
             </Form>
-          </h3>
+          </div>
+          <ul className="messages">
+            {activeChannelReadMessages}
+            {activeChannelUnreadMessages}
+          </ul>
         </div>
-        <ul className="messages">
-          {activeChannelReadMessages}
-          {activeChannelUnReadMessages}
-        </ul>
-      </div>
-    );
+      );
+    } else {
+      debugger;
+      return (
+        <div>
+          <div id="fixedChannelHeader">
+            <h3  className="channelName">You're not a member of a channel right now.</h3>
+            <p>Create a channel or have your teammates invite you to one.</p>
+            <Form id="floatedChannelSearchBar">
+              <Form.Group >
+                <Form.Input placeholder='Jump to...' id="message"/>
+              </Form.Group>
+            </Form>
+          </div>
+          <ul className="messages">
+            {activeChannelReadMessages}
+            {activeChannelUnreadMessages}
+          </ul>
+        </div>
+      )
+    }
 }
 
   render() {
+    this.props.channels.length && !this.props.activeChannelID ? this.props.grabActiveChannel(this.props.channels[0].id) : null
+
     console.log("Inside the Channel Container render", this.props)
     return (
       <div >
+        <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}}><Icon name="sign out" onClick={e => {this.props.logoutUser()}}></Icon></Button>
         <div className="channelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
-        <NewMessageForm className="fixedNewMessage"/>
+        {this.props.activeChannelID ? <NewMessageForm className="fixedNewMessage"/> : null}
       </div>
-
     )
   }
 }
 
 const mapStateToProps = state => ({
-  activeChannelID: state.channel.activeChannelID,
-  currentUser: state.auth.currentUser.id,
-  loading: state.channel.loading,
-  channels: state.channel.channels.length ? state.channel.channels : []
+    activeChannelID: state.channel.activeChannelID,
+    currentUser: state.auth.currentUser.id,
+    loading: state.channel.loading,
+    channels: state.channel.channels.length ? state.channel.channels : []
 })
 
 export default connect(mapStateToProps, actions)(ChannelContainer);
