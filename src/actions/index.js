@@ -65,6 +65,10 @@ export const updateActiveChannel = (id) => dispatch => {
   dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
 }
 
+export const updateLastChannelReadMessages = (id) => dispatch => {
+  dispatch({ type: 'UPDATE_LAST_CHANNEL_READ_MESSAGES', id})
+}
+
 export const createUserOptionsForForm = () => dispatch => {
   dispatch({type: 'GRAB_ALL_USERS'})
 }

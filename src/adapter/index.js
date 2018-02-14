@@ -43,6 +43,7 @@ const signup = data => {
 
 const getByChannel = channel_id => {
   let user_id = localStorage.getItem('user_id')
+  debugger;
   return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels.find(channel => channel.id === channel_id))
 }
 
@@ -106,6 +107,7 @@ const labelTheDM = (channelUsers, team, currentUserID) => {
 }
 
 const updateLastSeen = (channel) => {
+  debugger
   return fetch(`${API_ROOT}/update_last_seen`, {
     method: 'POST',
     headers,

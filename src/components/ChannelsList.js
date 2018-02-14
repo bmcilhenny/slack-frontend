@@ -34,6 +34,12 @@ class ChannelsList extends React.Component {
     this.props.grabUserChannels(this.props.currentUser.id)
   }
 
+  // componentWillUpdate(nextProps) {
+  //       if (nextProps.activeChannelID !== this.props.activeChannelID) {
+  //         this.props.updateReadMessages(this.props.activeChannelID)
+  //       }
+  //   }
+
   renderChannels() {
     console.log("Inside the channel list component", this.props)
     debugger;

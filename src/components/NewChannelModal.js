@@ -57,7 +57,7 @@ class NewChannelModal extends React.Component {
     event.preventDefault();
     debugger;
     if (this.state.name !== "" && this.state.details !== "" && this.state.users.length) {
-      adapter.channels.createChannel({team_id: this.props.currentUser.team_id, owner_id: this.props.currentUser.id, name: this.state.name, details: this.state.details, users: this.state.users, channel_type: 'CHANNEL'})
+      adapter.channels.createChannel({team_id: this.props.currentUser.team.id, owner_id: this.props.currentUser.id, name: this.state.name, details: this.state.details, users: this.state.users, channel_type: 'CHANNEL'})
       .then(anything => this.close())
     }
   }

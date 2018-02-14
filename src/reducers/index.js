@@ -21,6 +21,21 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       return {...state, activeChannelID: action.channel.id}
     case 'UPDATE_ACTIVE_CHANNEL':
       return {...state, activeChannelID: parseInt(action.id)}
+    case 'UPDATE_LAST_CHANNEL_READ_MESSAGES':
+      debugger
+      let copiedChannels2 = [...state.channels]
+      let foundChannel2 = copiedChannels.find(channel => channel.id === action.channel.id);
+      let index2 = state.channels.indexOf(foundChannel)
+      let copiedUnreadMessages2 = [...foundChannel.unreadMessages];
+      let copiedRedMessages2 = [...foundChannel.readMessages]
+      let newRedMessages2 = [...copiedRedMessages2, ...copiedUnreadMessages2]
+      let updatedChannel2 = {...foundChannel2, readMessages: newRedMessages2};
+      updatedChannel2 = {...updatedChannel2, unreadMessages: []}
+      if (foundChannel) {
+        debugger;
+        return {...state, channels: [...state.channels.slice(0, index), updatedChannel , ...state.channels.slice(index + 1.0
+        )]}
+      }
     case 'GRAB_ALL_USER_CHANNELS':
       return {...state, channels: [...action.channels], loading: false}
     case 'ADD_MESSAGE_TO_CHANNEL':
