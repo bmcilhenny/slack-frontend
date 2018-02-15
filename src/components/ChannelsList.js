@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
-import { Form, Input, Icon } from 'semantic-ui-react';
+import { Form, Input, Icon, Label } from 'semantic-ui-react';
 import NewChannelModal from './NewChannelModal';
 import NewDMModal from './NewDMModal';
 import { adapter } from '../adapter';
@@ -11,7 +11,8 @@ class ChannelsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      play: false
     };
   }
 
@@ -36,10 +37,22 @@ class ChannelsList extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-        if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
-          debugger;
-          this.props.updateLastChannelReadMessages(this.props.activeChannelID)
-        }
+      if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
+        debugger;
+        this.props.updateLastChannelReadMessages(this.props.activeChannelID)
+      }
+
+      // if (this.props.channels && nextProps) {
+      //   debugger
+      //   if (this.props.channels.length) {
+      //     debugger
+      //     if (this.props.channels.filter((channel, id) => channel.unreadMessages.length !== nextProps.channels[id].length).length) {
+      //       this.setState({
+      //         play: true
+      //       })
+      //     }
+      //   }
+      // }
     }
 
   renderChannels() {
@@ -50,8 +63,8 @@ class ChannelsList extends React.Component {
     let filteredUserDMs = null;
     debugger;
     if (this.props.channels.length) {
-      filteredUserChannels = this.props.channels.filter(channel => channel.channel_type === 'CHANNEL').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a>)
-      filteredUserDMs = this.props.channels.filter(channel => channel.channel_type === 'DM').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a>)
+      filteredUserChannels = this.props.channels.filter(channel => channel.channel_type === 'CHANNEL').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} <Label color='red' circular size='mini' style={{marginLeft: '1.5em'}}>{channel.unreadMessages.length}</Label></li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{channel.name} </li></a>)
+      filteredUserDMs = this.props.channels.filter(channel => channel.channel_type === 'DM').map(channel => channel.unreadMessages.length ? <a className="unRead" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)} <Label color='red' circular size='mini' style={{marginLeft: '1.5em'}}>{channel.unreadMessages.length}</Label></li></a> : <a className="read" onClick={this.handleChannelClick} id={channel.id} key={channel.id}><li key={channel.id} className={channel.id === this.props.activeChannelID ? "customBullet active" : "customBullet"} id={channel.id}>{adapter.helpers.labelTheDM(channel.users, this.props.team, this.props.currentUser.id) ? <Icon name='bullseye green'></Icon> : <Icon name='circle thin'></Icon>} {adapter.helpers.nameTheDM(channel.users, this.props.currentUser.id)}</li></a>)
     }
 
     return (

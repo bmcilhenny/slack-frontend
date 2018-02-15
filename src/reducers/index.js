@@ -21,21 +21,21 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       console.log("Inside the current channel reducer")
       return {...state, activeChannelID: action.channel.id}
     case 'UPDATE_ACTIVE_CHANNEL':
-      debugger;
+      // debugger;
       return {...state, activeChannelID: parseInt(action.id)}
     case 'UPDATE_LAST_CHANNEL_READ_MESSAGES':
-      debugger;
+      // debugger;
       let copiedChannels2 = [...state.channels]
       let foundChannel2 = copiedChannels2.find(channel => channel.id === action.id);
       let index2 = state.channels.indexOf(foundChannel2)
       let copiedUnreadMessages2 = [...foundChannel2.unreadMessages];
       let copiedReadMessages2 = [...foundChannel2.readMessages]
-      debugger
+      // debugger
       let newRedMessages2 = [...copiedReadMessages2, ...copiedUnreadMessages2]
       let updatedChannel2 = {...foundChannel2, readMessages: newRedMessages2};
       updatedChannel2 = {...updatedChannel2, unreadMessages: []}
       if (foundChannel2) {
-        debugger;
+        // debugger;
         return {...state, channels: [...state.channels.slice(0, index2), updatedChannel2 , ...state.channels.slice(index2 + 1.0
         )]}
       }
@@ -44,7 +44,7 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
     case 'ADD_MESSAGE_TO_CHANNEL':
       let copiedChannels = [...state.channels]
       let foundChannel = copiedChannels.find(channel => channel.id === action.message.message.channel_id);
-      debugger;
+      // debugger;
       if (foundChannel) {
         let index = state.channels.indexOf(foundChannel)
         let updatedMessages = [...foundChannel.unreadMessages, action.message]
@@ -59,11 +59,11 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       let copiedChannel = [...state.channels];
       return {...state, channels: [...copiedChannel, action.channel]}
     case 'USER_ONLINE':
-      debugger;
+      // debugger;
       return {...state, team: action.team.team.users}
-      debugger;
+      // debugger;
     case 'USER_OFFLINE':
-      debugger;
+      // debugger;
       return {...state, team: action.team.team.users}
     default:
       return state;

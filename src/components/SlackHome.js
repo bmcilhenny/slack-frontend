@@ -6,11 +6,13 @@ import ChannelsList from './ChannelsList';
 import ChannelContainer from './ChannelContainer';
 import {ActionCable} from 'react-actioncable-provider';
 import withAuth from '../hocs/withAuth';
+import Sound from 'react-sound';
 
 class SlackHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      playStatus: false
     };
   }
 
@@ -25,10 +27,17 @@ class SlackHome extends React.Component {
   }
 
   handleSocketResponse = data => {
-    debugger;
     console.log("Inside the handleSocketResponse", data)
     switch (data.type) {
       case 'NEW_MESSAGE':
+        let filteredChannels = this.props.channels.filter(channel => channel.id === data.payload.message.channel_id)
+        debugger;
+        if (filteredChannels.length) {
+          this.setState({
+            playStatus: true
+          })
+        }
+        debugger;
         this.props.addMessage(data.payload);
         break;
       case 'NEW_CHANNEL':
@@ -65,17 +74,17 @@ class SlackHome extends React.Component {
   };
 
   render() {
-    console.log(this.props.channels)
+    console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui padded equal height grid">
         <ActionCable
           channel={{ channel: 'ChannelChannel', current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
           onReceived={this.handleSocketResponse}
         />
-      <div className="three wide column slackPurple " ><ChannelsList /></div>
-        <div className="thirteen wide column"><ChannelContainer /></div>
-      </div>
+        <div className="three wide column slackPurple " ><ChannelsList /></div>
+        <div className="thirteen wide column"><ChannelContainer /><Sound url="https://www.myinstants.com/media/sounds/times-up.mp3" playStatus={this.state.playStatus} onLoading={({ bytesLoaded, bytesTotal }) => console.log(`${bytesLoaded / bytesTotal * 100}% loaded`)} volume='100' onFinishedPlaying={() => this.setState({playStatus: false})} /></div>
 
+      </div>
     )
   }
 

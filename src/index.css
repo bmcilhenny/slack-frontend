@@ -6,7 +6,6 @@ body {
 
 #content {
   position: absolute;
-  /* padding-top: 50px; */
   height: 100%;
   width: 100%
 }
@@ -102,10 +101,6 @@ a:link {
   padding-top: 200px;
 }
 
-.channelName {
-  /* border-bottom: 5px solid red !important; */
-}
-
 #signUpLink {
   color: purple !important;
   text-decoration: underline;
@@ -122,8 +117,6 @@ a:link {
   background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
-  /* top, transparent red */
-    /* bottom, image */
 
 }
 
@@ -139,10 +132,3 @@ a:link {
 .signupInput:focus {
   outline: 1px purple solid !important;
 }
-
-/*  Above form put app name*/
-/*form title: text-align: left; */
-/*  form text align left*/
-
-/* Segment above form border radius, semi transparent background color and padding on left, more on right */
-/*  */
