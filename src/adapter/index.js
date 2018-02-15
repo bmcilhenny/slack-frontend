@@ -100,6 +100,7 @@ const labelTheDM = (channelUsers, team, currentUserID) => {
   let filteredUser = channelUsers.filter(user => user.id !== currentUserID)
   debugger
   let filteredTeam = team.filter(user => user.id === filteredUser[0].id);
+  debugger;
   if (filteredTeam && filteredTeam[0].online) {
     return true
   } else {

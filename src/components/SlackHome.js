@@ -12,7 +12,7 @@ class SlackHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playStatus: false
+      playStatus: Sound.status.STOPPED
     };
   }
 
@@ -32,9 +32,9 @@ class SlackHome extends React.Component {
       case 'NEW_MESSAGE':
         let filteredChannels = this.props.channels.filter(channel => channel.id === data.payload.message.channel_id)
         debugger;
-        if (filteredChannels.length) {
+        if (filteredChannels.length && data.payload.message.user.id !== this.props.currentUser.id) {
           this.setState({
-            playStatus: true
+            playStatus: Sound.status.PLAYING
           })
         }
         debugger;
@@ -82,8 +82,14 @@ class SlackHome extends React.Component {
           onReceived={this.handleSocketResponse}
         />
         <div className="three wide column slackPurple " ><ChannelsList /></div>
-        <div className="thirteen wide column"><ChannelContainer /><Sound url="https://www.myinstants.com/media/sounds/times-up.mp3" playStatus={this.state.playStatus} onLoading={({ bytesLoaded, bytesTotal }) => console.log(`${bytesLoaded / bytesTotal * 100}% loaded`)} volume='100' onFinishedPlaying={() => this.setState({playStatus: false})} /></div>
-
+        <div className="thirteen wide column"><ChannelContainer /></div>
+        <Sound
+          url="http://www.pacdv.com/sounds/people_sound_effects/clearing-throat-3.wav"
+          playStatus={this.state.playStatus}
+          onLoading={({ bytesLoaded, bytesTotal }) => console.log(`${bytesLoaded / bytesTotal * 100}% loaded`)}
+          volume='100'
+          onFinishedPlaying={() => this.setState({playStatus: Sound.status.STOPPED})}
+        />
       </div>
     )
   }
