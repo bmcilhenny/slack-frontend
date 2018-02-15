@@ -107,5 +107,42 @@ a:link {
 }
 
 #signUpLink {
-  color: blue !important;
+  color: purple !important;
+  text-decoration: underline;
+  text-align: center !important;
+  padding-top: 10px;
 }
+
+.backgroundSignInAndSignUpFom {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.75),
+    rgba(255, 255, 255, 0.2)
+  ), url("http://alice-lee.com/img/pages/slack3_04.png") !important;
+  height: 101.8%;
+  background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+  /* top, transparent red */
+    /* bottom, image */
+
+}
+
+.purpleForm {
+  background: #E6E8FF !important;
+}
+
+.alignLabels {
+  padding-left: 1rem;
+  color: purple !important;
+}
+
+.signupInput:focus {
+  outline: 1px purple solid !important;
+}
+
+/*  Above form put app name*/
+/*form title: text-align: left; */
+/*  form text align left*/
+
+/* Segment above form border radius, semi transparent background color and padding on left, more on right */
+/*  */

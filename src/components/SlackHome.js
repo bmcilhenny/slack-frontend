@@ -47,7 +47,7 @@ class SlackHome extends React.Component {
         if (userMemberOfDM && userOwnerOfNewDM) {
           this.props.addChannel(data.payload.channel);
           this.props.updateActiveChannel(data.payload.channel.id)
-        } else if (userOwnerOfNewDM) {
+        } else if (userMemberOfDM) {
           this.props.addChannel(data.payload.channel);
         }
         break;

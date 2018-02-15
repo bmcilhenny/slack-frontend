@@ -92,10 +92,10 @@ class ChannelContainer extends React.Component {
   render() {
     this.props.channels.length && !this.props.activeChannelID ? this.props.grabActiveChannel(this.props.channels[0].id) : null
 
-    console.log("Inside the Channel Container render", this.props)
+    // console.log("Inside the Channel Container render", this.props)
     return (
       <div >
-        <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}}><Icon name="sign out" onClick={e => {this.props.logoutUser()}}></Icon></Button>
+        <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser()}}><Icon name="sign out"></Icon></Button>
         <div className="channelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
         {this.props.activeChannelID ? <NewMessageForm className="fixedNewMessage"/> : null}
       </div>
