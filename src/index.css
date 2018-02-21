@@ -132,3 +132,13 @@ a:link {
 .signupInput:focus {
   outline: 1px purple solid !important;
 }
+
+.noBorderRadius {
+  border-radius: .3125em !important;
+    padding-top: 2px;
+}
+
+.italic {
+  font-style: italic;
+  color: #939395;
+}
