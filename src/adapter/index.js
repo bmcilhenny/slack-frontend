@@ -1,4 +1,4 @@
-const API_ROOT = `http://192.168.2.84:3000/api/v1/teams/4`;
+const API_ROOT = `http://localhost:3000/api/v1/teams/5`;
 
 const headers = {
   'Content-Type': 'application/json',
@@ -101,10 +101,8 @@ const labelTheDM = (channelUsers, team, currentUserID) => {
   debugger
   let filteredTeam = team.filter(user => user.id === filteredUser[0].id);
   debugger;
-  if (filteredTeam.length) {
-    if (filteredTeam[0].online) {
-      return true
-    }
+  if (filteredTeam && filteredTeam[0].online) {
+    return true
   } else {
     return false
   }
@@ -122,18 +120,6 @@ const updateLastSeen = (channel) => {
 const populateModalsWithTeammateOptions = (team) => {
   let reconfiguredTeam = team.map(user => ({text: user.display_name, value: user.id, image: ({ avatar: true, src: user.image_url})}))
   return reconfiguredTeam
-}
-
-const formatDateTime = (dateStr) => {
-  let date = new Date(dateStr);
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
-  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
 
 export const adapter = {
@@ -159,7 +145,6 @@ export const adapter = {
     nameTheDM,
     isUserOnline,
     labelTheDM,
-    populateModalsWithTeammateOptions,
-    formatDateTime
+    populateModalsWithTeammateOptions
   }
 };
