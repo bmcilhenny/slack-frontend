@@ -14,15 +14,19 @@ class Login extends React.Component {
       }
     };
   }
+
   handleChange = e => {
     const newFields = { ...this.state.fields, [e.target.name]: e.target.value };
     this.setState({ fields: newFields });
   };
+
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.props)
     const { fields: { username, password } } = this.state;
     this.props.loginUser(username, password, this.props.history);
   };
+
   render() {
     const { fields } = this.state;
     return (
@@ -32,7 +36,7 @@ class Login extends React.Component {
             <div className="ui center aligned page grid">
               {this.state.error ? <h1>Try Again</h1> : null}
               <div className="eight wide  column">
-                <img class="ui centered medium image" src="https://cdn.worldvectorlogo.com/logos/slack.svg"/>
+                <img className="ui centered medium image" src="https://cdn.worldvectorlogo.com/logos/slack.svg"/>
                 <div className="ui left aligned segment purple" >
                   <h4 className="ui dividing header large">Login</h4>
 
