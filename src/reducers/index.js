@@ -19,6 +19,7 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       return { ...state, loading: true }
     case 'SET_CURRENT_CHANNEL':
       console.log("Inside the current channel reducer")
+      debugger;
       return {...state, activeChannelID: action.channel.id}
     case 'UPDATE_ACTIVE_CHANNEL':
       // debugger;
@@ -27,17 +28,19 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       // debugger;
       let copiedChannels2 = [...state.channels]
       let foundChannel2 = copiedChannels2.find(channel => channel.id === action.id);
-      let index2 = state.channels.indexOf(foundChannel2)
-      let copiedUnreadMessages2 = [...foundChannel2.unreadMessages];
-      let copiedReadMessages2 = [...foundChannel2.readMessages]
-      // debugger
-      let newRedMessages2 = [...copiedReadMessages2, ...copiedUnreadMessages2]
-      let updatedChannel2 = {...foundChannel2, readMessages: newRedMessages2};
-      updatedChannel2 = {...updatedChannel2, unreadMessages: []}
       if (foundChannel2) {
+        let index2 = state.channels.indexOf(foundChannel2)
+        let copiedUnreadMessages2 = [...foundChannel2.unreadMessages];
+        let copiedReadMessages2 = [...foundChannel2.readMessages]
+        // debugger
+        let newRedMessages2 = [...copiedReadMessages2, ...copiedUnreadMessages2]
+        let updatedChannel2 = {...foundChannel2, readMessages: newRedMessages2};
+        updatedChannel2 = {...updatedChannel2, unreadMessages: []}
         // debugger;
         return {...state, channels: [...state.channels.slice(0, index2), updatedChannel2 , ...state.channels.slice(index2 + 1.0
         )]}
+      } else {
+        return state;
       }
     case 'GRAB_ALL_USER_CHANNELS':
       return {...state, channels: [...action.channels], loading: false}

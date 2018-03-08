@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions'
 import NewMessageForm from './NewMessageForm';
 import Message from './Message'
-import { Icon, Form, Divider, Button } from 'semantic-ui-react';
+import { Icon, Form, Divider, Button, Image } from 'semantic-ui-react';
 import { adapter } from '../adapter';
 
 class ChannelContainer extends React.Component {
@@ -38,12 +38,12 @@ class ChannelContainer extends React.Component {
 
     if (activeChannel && activeChannel.readMessages.length) {
       debugger
-      activeChannelReadMessages = activeChannel.readMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelReadMessages = activeChannel.readMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span>: {message.message.content} </li>)
     }
 
     if (activeChannel && activeChannel.unreadMessages.length) {
       debugger
-      activeChannelUnreadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold">{message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelUnreadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span>: {message.message.content} </li>)
       activeChannelUnreadMessages.unshift(<Divider horizontal>New Messages</Divider>)
     }
     if (activeChannel) {

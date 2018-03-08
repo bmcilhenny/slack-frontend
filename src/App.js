@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import '../App.css';
-import Login from './Login';
-// import Navbar from './Navbar';
-import Signup from './Signup';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
-import * as actions from '../actions';
 import { connect } from 'react-redux';
-import SlackHome from './SlackHome'
+import * as actions from './actions';
+
+import './App.css';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import SlackHome from './components/SlackHome';
 
 class App extends Component {
 
@@ -16,20 +16,18 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <div className="App">
         <div id="content">
           <Switch>
+            <Route exact path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <Redirect to="/slackhome"/>}>
+            </Route>
             <Route exact path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/slackhome"/>}>
-              Login
             </Route>
             <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <Redirect to="/slackhome"/> }>
-              Sign up
             </Route>
             <Route exact path="/slackhome" render = {() => <SlackHome /> }>
-              Slack Home
             </Route>
           </Switch>
         </div>

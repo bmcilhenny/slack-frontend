@@ -37,7 +37,6 @@ export const logoutUser = () => {
 
 
 export const grabActiveChannel = (channel_id) => dispatch => {
-  debugger
   adapter.channels.getByChannel(channel_id).then(channel => {
     debugger
     console.log("Just finished fething the active channel", channel)
