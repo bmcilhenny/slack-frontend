@@ -26,24 +26,18 @@ class ChannelContainer extends React.Component {
   renderChannelMessages() {
     let activeChannel = this.props.channels.find(channel => channel.id === this.props.activeChannelID)
     debugger;
-    // if (activeChannel) {
-    //
-    // } else {
-    //   activeChannel = null;
-    // }
-
     let activeChannelReadMessages = null;
     let activeChannelUnreadMessages = null
 
 
     if (activeChannel && activeChannel.readMessages.length) {
       debugger
-      activeChannelReadMessages = activeChannel.readMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelReadMessages = activeChannel.readMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span> <span className="italic">{adapter.helpers.formatDateTime(message.message.created_at)}</span>: {message.message.content} </li>)
     }
 
     if (activeChannel && activeChannel.unreadMessages.length) {
       debugger
-      activeChannelUnreadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span>: {message.message.content} </li>)
+      activeChannelUnreadMessages = activeChannel.unreadMessages.map(message => <li key={message.message.id} id={message.message.id}> <span className="bold"><Image src={message.message.user.image_url} className="noBorderRadius" avatar/> {message.message.user.display_name}</span> <span className="italic">{adapter.helpers.formatDateTime(message.message.created_at)}</span>: {message.message.content} </li>)
       activeChannelUnreadMessages.unshift(<Divider horizontal>New Messages</Divider>)
     }
     if (activeChannel) {
