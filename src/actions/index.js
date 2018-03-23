@@ -9,8 +9,9 @@ export const fetchUser = () => dispatch => {
 
 export const loginUser = (username, password, history) => dispatch => {
   dispatch({ type: 'ASYNC_START' });
-
+  console.log("Is it working?")
   adapter.auth.login({ username, password }).then(user => {
+    console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
     localStorage.setItem('user_id', user.id)
     dispatch({ type: 'SET_CURRENT_USER', user });

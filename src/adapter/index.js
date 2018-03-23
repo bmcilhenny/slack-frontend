@@ -2,7 +2,7 @@ const API_ROOT = `http://localhost:3000/api/v1/teams/5`;
 
 const headers = {
   'Content-Type': 'application/json',
-  Accepts: 'application/json'
+  'accept': 'application/json'
 };
 
 const getUsers = () => {
@@ -23,7 +23,7 @@ const getCurrentUser = () => {
 };
 
 const login = data => {
-  // console.log(data)
+  console.log("Inside the adapter", data)
   return fetch(`${API_ROOT}/login`, {
     method: 'POST',
     headers,

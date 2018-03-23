@@ -34,7 +34,7 @@ ul {
 
 #fixedChannelHeader {
   /* float: left; */
-  border: 4mm ridge rgb(170, 50, 220, .6);
+  /* border: 4mm ridge rgb(170, 50, 220, .6); */
   vertical-align: middle;
   background-color: white;
   z-index: 1;
