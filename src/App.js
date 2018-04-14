@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
-
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -27,7 +26,7 @@ class App extends Component {
             </Route>
             <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <Redirect to="/slackhome"/> }>
             </Route>
-            <Route exact path="/slackhome" render = {() => <SlackHome /> }>
+            <Route exact path="/slackhome" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <SlackHome /> }>
             </Route>
           </Switch>
         </div>

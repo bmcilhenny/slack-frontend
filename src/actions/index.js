@@ -32,10 +32,9 @@ export const loginUser = (username, password, history) => dispatch => {
 //   });
 // };
 
-export const logoutUser = (history) => {
+export const logoutUser = () => {
   console.log("CLICKED")
   localStorage.removeItem('token');
-  history.push('/');
   return { type: LOGOUT_USER };
 };
 
