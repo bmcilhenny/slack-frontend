@@ -142,3 +142,8 @@ a:link {
   font-style: italic;
   color: #939395;
 }
+
+.wrong-route a {
+  color: black !important;
+  text-decoration: underline;
+}

@@ -6,7 +6,7 @@ import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import SlackHome from './components/SlackHome';
-
+import NoMatch from './components/NoMatch';
 class App extends Component {
 
   componentDidMount() {
@@ -27,6 +27,8 @@ class App extends Component {
             <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <Redirect to="/slackhome"/> }>
             </Route>
             <Route exact path="/slackhome" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <SlackHome /> }>
+            </Route>
+            <Route component={NoMatch}>
             </Route>
           </Switch>
         </div>
