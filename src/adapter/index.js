@@ -1,12 +1,7 @@
-const API_ROOT = `http://localhost:3000/api/v1/teams/5`;
-
-const headers = {
-  'Content-Type': 'application/json',
-  'accept': 'application/json'
-};
+import  { API_ROOT, HEADERS } from '../constants';
 
 const getUsers = () => {
-  return fetch(`${API_ROOT}/users`, { headers: headers }).then(res =>
+  return fetch(`${API_ROOT}/users`, { headers: HEADERS }).then(res =>
     res.json()
   );
 };
@@ -26,7 +21,7 @@ const login = data => {
   console.log("Inside the adapter", data)
   return fetch(`${API_ROOT}/login`, {
     method: 'POST',
-    headers,
+    headers: HEADERS,
     body: JSON.stringify(data)
   }).then(res => res.json());
 };
@@ -35,7 +30,7 @@ const signup = data => {
 
   return fetch(`${API_ROOT}/users`, {
     method: 'POST',
-    headers,
+    headers: HEADERS,
     body: JSON.stringify(data)
   }).then(res => res.json())
   .catch(() => window.alert('ERROR'))
@@ -58,7 +53,7 @@ const createChannel = channel => {
   debugger;
   return fetch(`${API_ROOT}/channels`, {
     method: 'POST',
-    headers,
+    headers: HEADERS,
     body: JSON.stringify(channel)
   })
 }
@@ -66,7 +61,7 @@ const createChannel = channel => {
 const createMessage = message => {
   return fetch(`${API_ROOT}/messages`, {
     method: 'POST',
-    headers,
+    headers: HEADERS,
     body: JSON.stringify(message)
   })
 }
@@ -112,7 +107,7 @@ const updateLastSeen = (channel) => {
   debugger
   return fetch(`${API_ROOT}/update_last_seen`, {
     method: 'POST',
-    headers,
+    headers: HEADERS,
     body: JSON.stringify(channel)
   })
 }
@@ -124,9 +119,9 @@ const populateModalsWithTeammateOptions = (team) => {
 
 const formatDateTime = (dateStr) => {
   let date = new Date(dateStr);
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let ampm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0' + minutes : minutes;

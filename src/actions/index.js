@@ -1,20 +1,22 @@
 import { adapter } from '../adapter';
+import { ASYNC_START, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
 export const fetchUser = () => dispatch => {
-  dispatch({ type: 'ASYNC_START' });
+  dispatch({ type: ASYNC_START });
   adapter.auth.getCurrentUser().then(user => {
-    dispatch({ type: 'SET_CURRENT_USER', user });
+    debugger;
+    dispatch({ type: SET_CURRENT_USER, user });
   });
 };
 
 export const loginUser = (username, password, history) => dispatch => {
-  dispatch({ type: 'ASYNC_START' });
+  dispatch({ type: ASYNC_START });
   console.log("Is it working?")
   adapter.auth.login({ username, password }).then(user => {
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
     localStorage.setItem('user_id', user.id)
-    dispatch({ type: 'SET_CURRENT_USER', user });
+    dispatch({ type: SET_CURRENT_USER, user });
     history.push('/slackhome');
   });
 };
@@ -30,10 +32,11 @@ export const loginUser = (username, password, history) => dispatch => {
 //   });
 // };
 
-export const logoutUser = () => {
+export const logoutUser = (history) => {
   console.log("CLICKED")
   localStorage.removeItem('token');
-  return { type: 'LOGOUT_USER' };
+  history.push('/');
+  return { type: LOGOUT_USER };
 };
 
 
@@ -41,7 +44,7 @@ export const grabActiveChannel = (channel_id) => dispatch => {
   adapter.channels.getByChannel(channel_id).then(channel => {
     debugger
     console.log("Just finished fething the active channel", channel)
-    dispatch({ type: 'SET_CURRENT_CHANNEL', channel})
+    dispatch({ type: SET_CURRENT_CHANNEL, channel})
     localStorage.setItem('activeChannel', channel_id);
   })
 }
@@ -50,7 +53,7 @@ export const grabUserChannels = (user_id) => dispatch => {
   setTimeout(() => {
     adapter.channels.grabUserChannels(user_id).then(channels => {
     // console.log("Just finished fething", channels)
-    dispatch({ type: 'GRAB_ALL_USER_CHANNELS', channels})
+    dispatch({ type: GRAB_ALL_USER_CHANNELS, channels})
     localStorage.setItem('userChannels', channels);
       })
     }, 1000);
@@ -59,35 +62,35 @@ export const grabUserChannels = (user_id) => dispatch => {
 
 export const addMessage = (message) => dispatch => {
   debugger;
-  dispatch({ type: 'ADD_MESSAGE_TO_CHANNEL', message})
+  dispatch({ type: ADD_MESSAGE_TO_CHANNEL, message})
 }
 
 export const addChannel = (channel) => dispatch => {
-  dispatch({ type: 'ADD_CHANNEL_TO_USER', channel})
+  dispatch({ type: ADD_CHANNEL_TO_USER, channel})
 }
 
 export const addDM = (dm) => dispatch => {
-  dispatch({ type: 'ADD_DM_TO_USER', dm})
+  dispatch({ type: ADD_DM_TO_USER, dm})
 }
 
 export const updateActiveChannel = (id) => dispatch => {
   debugger;
-  dispatch({ type: 'UPDATE_ACTIVE_CHANNEL', id})
+  dispatch({ type: UPDATE_ACTIVE_CHANNEL, id})
 }
 
 export const updateLastChannelReadMessages = (id) => dispatch => {
-  dispatch({ type: 'UPDATE_LAST_CHANNEL_READ_MESSAGES', id})
+  dispatch({ type: UPDATE_LAST_CHANNEL_READ_MESSAGES, id})
 }
 
 export const createUserOptionsForForm = () => dispatch => {
-  dispatch({type: 'GRAB_ALL_USERS'})
+  dispatch({type: GRAB_ALL_USERS})
 }
 
 export const userOnline = team => dispatch => {
-  dispatch({type: 'USER_ONLINE', team})
+  dispatch({type: USER_ONLINE, team})
 }
 
 export const userOffline = team => dispatch => {
   debugger;
-  dispatch({type: 'USER_OFFLINE', team})
+  dispatch({type: USER_OFFLINE, team})
 }

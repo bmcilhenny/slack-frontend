@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
+import { ASYNC_START, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
 const authReducer = (state = { currentUser: {}}, action) => {
   switch (action.type) {
-    case 'SET_CURRENT_USER':
+    case SET_CURRENT_USER:
     const { id, username, display_name, team } = action.user;
       return { ...state, currentUser: { id, username, display_name, team } };
-    case 'LOGOUT_USER':
+    case LOGOUT_USER:
       return { ...state, currentUser: {} };
     default:
       return state;
@@ -15,16 +16,16 @@ const authReducer = (state = { currentUser: {}}, action) => {
 
 const channelsReducer = (state = {activeChannelID: '', channels: [], loading: false, team: []}, action) => {
   switch (action.type) {
-    case 'ASYNC_START':
+    case ASYNC_START:
       return { ...state, loading: true }
-    case 'SET_CURRENT_CHANNEL':
+    case SET_CURRENT_CHANNEL:
       console.log("Inside the current channel reducer")
       debugger;
       return {...state, activeChannelID: action.channel.id}
-    case 'UPDATE_ACTIVE_CHANNEL':
+    case UPDATE_ACTIVE_CHANNEL:
       // debugger;
       return {...state, activeChannelID: parseInt(action.id)}
-    case 'UPDATE_LAST_CHANNEL_READ_MESSAGES':
+    case UPDATE_LAST_CHANNEL_READ_MESSAGES:
       // debugger;
       let copiedChannels2 = [...state.channels]
       let foundChannel2 = copiedChannels2.find(channel => channel.id === action.id);
@@ -42,9 +43,9 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       } else {
         return state;
       }
-    case 'GRAB_ALL_USER_CHANNELS':
+    case GRAB_ALL_USER_CHANNELS:
       return {...state, channels: [...action.channels], loading: false}
-    case 'ADD_MESSAGE_TO_CHANNEL':
+    case ADD_MESSAGE_TO_CHANNEL:
       let copiedChannels = [...state.channels]
       let foundChannel = copiedChannels.find(channel => channel.id === action.message.message.channel_id);
       // debugger;
@@ -57,15 +58,15 @@ const channelsReducer = (state = {activeChannelID: '', channels: [], loading: fa
       } else {
         return {...state, channels: [...state.channels]}
       }
-    case 'ADD_CHANNEL_TO_USER':
+    case ADD_CHANNEL_TO_USER:
       // debugger;
       let copiedChannel = [...state.channels];
       return {...state, channels: [...copiedChannel, action.channel]}
-    case 'USER_ONLINE':
+    case USER_ONLINE:
       // debugger;
       return {...state, team: action.team.team.users}
       // debugger;
-    case 'USER_OFFLINE':
+    case USER_OFFLINE:
       // debugger;
       return {...state, team: action.team.team.users}
     default:
