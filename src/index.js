@@ -6,15 +6,13 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css';
-import {ActionCableProvider} from 'react-actioncable-provider';
-// import shoppingListItemReducer from 'src/reducers/slackListChannelAndMessageReducer.js';
-
-
+import { ActionCableProvider } from 'react-actioncable-provider';
+import { ActionCableAPIURL } from './constants';
 const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ActionCableProvider url={'ws://localhost:3000/cable'}>
+    <ActionCableProvider url={ActionCableAPIURL}>
       <BrowserRouter>
         <Route path="/" component={App} />
       </BrowserRouter>

@@ -4,6 +4,7 @@ export const HEADERS = {
   'Content-Type': 'application/json',
   'Accepts': 'application/json'
 };
+export const ActionCableAPIURL = 'ws://localhost:3000/cable';
 
 
 //Action constants

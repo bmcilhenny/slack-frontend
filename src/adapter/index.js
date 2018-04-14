@@ -1,11 +1,5 @@
 import  { API_ROOT, HEADERS } from '../constants';
 
-const getUsers = () => {
-  return fetch(`${API_ROOT}/users`, { headers: HEADERS }).then(res =>
-    res.json()
-  );
-};
-
 const getWithToken = url => {
   const token = localStorage.getItem('token');
   return fetch(url, {
@@ -13,12 +7,8 @@ const getWithToken = url => {
   }).then(res => res.json());
 };
 
-const getCurrentUser = () => {
-  return getWithToken(`${API_ROOT}/current_user`);
-};
-
 const login = data => {
-  console.log("Inside the adapter", data)
+  // console.log("Inside the adapter", data)
   return fetch(`${API_ROOT}/login`, {
     method: 'POST',
     headers: HEADERS,
@@ -27,7 +17,6 @@ const login = data => {
 };
 
 const signup = data => {
-
   return fetch(`${API_ROOT}/users`, {
     method: 'POST',
     headers: HEADERS,
@@ -36,6 +25,15 @@ const signup = data => {
   .catch(() => window.alert('ERROR'))
 };
 
+const getCurrentUser = () => {
+  return getWithToken(`${API_ROOT}/current_user`);
+};
+
+const getUsers = () => {
+  return fetch(`${API_ROOT}/users`, { headers: HEADERS }).then(res =>
+    res.json()
+  );
+};
 
 const getByChannel = channel_id => {
   let user_id = localStorage.getItem('user_id')
