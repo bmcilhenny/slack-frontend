@@ -1,10 +1,16 @@
 import  { API_ROOT, HEADERS } from '../constants';
 
 const getWithToken = url => {
+  debugger;
   const token = localStorage.getItem('token');
   return fetch(url, {
-    headers: { Authorization: token }
-  }).then(res => res.json());
+    headers: {
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json',
+      'Authorization': token, }
+  })
+  .then(res => res.json())
+  .catch(() => window.alert('ERROR'));
 };
 
 const login = data => {
@@ -13,7 +19,8 @@ const login = data => {
     method: 'POST',
     headers: HEADERS,
     body: JSON.stringify(data)
-  }).then(res => res.json());
+  })
+  .then(res => res.json());
 };
 
 const signup = data => {
@@ -26,6 +33,7 @@ const signup = data => {
 };
 
 const getCurrentUser = () => {
+  debugger;
   return getWithToken(`${API_ROOT}/current_user`);
 };
 

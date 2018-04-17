@@ -69,37 +69,3 @@ class Login extends React.Component {
   }
 }
 export default withRouter(connect(null, actions)(Login));
-
-// <div>
-//   {this.state.error ? <h1>Try Again</h1> : null}
-//   <div className="ui form">
-//     <form onSubmit={this.handleSubmit}>
-//       <div className="ui field">
-//         <label>Username</label>
-//         <input
-//           name="username"
-//           placeholder="username"
-//           value={fields.username}
-//           onChange={this.handleChange}
-//         />
-//       </div>
-//       <div className="ui field">
-//         <label>Password</label>
-//         <input
-//           name="password"
-//           type="password"
-//           placeholder="password"
-//           value={fields.password}
-//           onChange={this.handleChange}
-//         />
-//       </div>
-//       <button type="submit" className="ui basic green button">
-//         Login
-//       </button>
-//     </form>
-//     <Link to="/signup" className="item" id="signUpLink">
-//       <p>Don't have an account? Sign up here.</p>
-//     </Link>
-//   </div>
-// </div>
-//

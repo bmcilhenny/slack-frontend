@@ -12,11 +12,9 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ActionCableProvider url={ActionCableAPIURL}>
       <BrowserRouter>
         <Route path="/" component={App} />
       </BrowserRouter>
-    </ActionCableProvider>
   </Provider>,
   document.getElementById('root')
 );

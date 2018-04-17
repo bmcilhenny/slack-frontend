@@ -7,10 +7,16 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import SlackHome from './components/SlackHome';
 import NoMatch from './components/NoMatch';
+import { ActionCableProvider } from 'react-actioncable-provider';
+import { ActionCableAPIURL } from './constants';
+
+
+
 class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
+      // debugger;
       this.props.fetchUser();
     }
   }
@@ -18,20 +24,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div id="content">
-          <Switch>
-            <Route exact path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <Redirect to="/slackhome"/>}>
-            </Route>
-            <Route exact path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/slackhome"/>}>
-            </Route>
-            <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <Redirect to="/slackhome"/> }>
-            </Route>
-            <Route exact path="/slackhome" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <SlackHome /> }>
-            </Route>
-            <Route component={NoMatch}>
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider>}>
+          </Route>
+          <Route exact path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/slackhome"/> }>
+          </Route>
+          <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider> }>
+          </Route>
+          <Route exact path="/slackhome" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider> }>
+          </Route>
+          <Route component={NoMatch}>
+          </Route>
+        </Switch>
       </div>
     );
   }

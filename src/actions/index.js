@@ -2,6 +2,7 @@ import { adapter } from '../adapter';
 import { ASYNC_START, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
 export const fetchUser = () => dispatch => {
+  debugger;
   dispatch({ type: ASYNC_START });
   adapter.auth.getCurrentUser().then(user => {
     debugger;

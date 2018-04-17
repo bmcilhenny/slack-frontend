@@ -78,7 +78,7 @@ class SlackHome extends React.Component {
     return (
       <div className="ui padded equal height grid">
         <ActionCable
-          channel={{ channel: 'ChannelChannel', current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
+          channel={{ channel: 'ChannelChannel', room: `Group${this.props.currentUser.id}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
           onReceived={this.handleSocketResponse}
         />
         <div className="three wide column slackPurple " ><ChannelsList /></div>

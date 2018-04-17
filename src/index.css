@@ -4,11 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-#content {
-  position: absolute;
-  /* height: 100%; */
-  width: 100%
-}
 
 .ui.grid {
     height: 100%;
@@ -109,11 +104,15 @@ a:link {
 }
 
 .backgroundSignInAndSignUpFom {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-image: linear-gradient(
     rgba(255, 255, 255, 0.75),
     rgba(255, 255, 255, 0.2)
   ), url("http://alice-lee.com/img/pages/slack3_04.png") !important;
-  height: 101.8%;
+  /* width: 100%;
+  height: 101.8% !important; */
   background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
