@@ -2,7 +2,7 @@ import  { API_ROOT, HEADERS, HEADERS_WITH_TOKEN } from '../constants';
 import Sound from 'react-sound';
 
 const getWithToken = url => {
-  debugger;
+  // debugger;
   // const token = localStorage.getItem('token');
   return fetch(url, {
     headers: HEADERS_WITH_TOKEN
@@ -31,7 +31,7 @@ const signup = data => {
 };
 
 const getCurrentUser = () => {
-  debugger;
+  // debugger;
   return getWithToken(`${API_ROOT}/current_user`);
 };
 
@@ -81,6 +81,7 @@ const arrayContainsObj = (obj, array) => {
 }
 
 const isUserOnline = (userID, array) => {
+  debugger;
   let userObj = array.find(user => user.id === userID);
   if (userObj.online === true) {
     return true

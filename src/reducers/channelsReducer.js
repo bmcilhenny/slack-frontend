@@ -1,9 +1,7 @@
 import { ASYNC_START, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
-export const channelsReducer = (state = {activeChannelID: '', channels: [], loading: false, team: []}, action) => {
+export const channelsReducer = (state = {activeChannelID: '', channels: [], team: []}, action) => {
   switch (action.type) {
-    case ASYNC_START:
-      return { ...state, loading: true }
     case SET_CURRENT_CHANNEL:
       console.log("Inside the current channel reducer")
       debugger;
@@ -30,7 +28,7 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], load
         return state;
       }
     case GRAB_ALL_USER_CHANNELS:
-      return {...state, channels: [...action.channels], loading: false}
+      return {...state, channels: [...action.channels]}
     case ADD_MESSAGE_TO_CHANNEL:
       let copiedChannels = [...state.channels]
       let foundChannel = copiedChannels.find(channel => channel.id === action.message.message.channel_id);
@@ -49,11 +47,10 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], load
       let copiedChannel = [...state.channels];
       return {...state, channels: [...copiedChannel, action.channel]}
     case USER_ONLINE:
-      // debugger;
+      debugger;
       return {...state, team: action.team.team.users}
-      // debugger;
     case USER_OFFLINE:
-      // debugger;
+      debugger;
       return {...state, team: action.team.team.users}
     default:
       return state;

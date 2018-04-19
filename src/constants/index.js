@@ -16,6 +16,7 @@ export const ActionCableAPIURL = 'ws://localhost:3000/cable';
 
 //Action constants
 export const ASYNC_START = 'ASYNC_START';
+export const ASYNC_FINISH = 'ASYNC_FINISH';
 export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
 export const USER_ONLINE = 'USER_ONLINE';
 export const USER_OFFLINE = 'USER_OFFLINE';

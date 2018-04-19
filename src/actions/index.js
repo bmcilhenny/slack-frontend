@@ -1,13 +1,13 @@
 import { adapter } from '../adapter';
-import { ASYNC_START, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
+import { ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
 
 // Hits the auth controller #show action, grabs token from localStorage and if loggedIn sends back user id, username, team and display name
 export const fetchUser = () => dispatch => {
-  debugger;
   dispatch({ type: ASYNC_START });
   adapter.auth.getCurrentUser().then(user => {
-    debugger;
+    // debugger;
+    dispatch({ type: ASYNC_FINISH });
     dispatch({ type: SET_CURRENT_USER, user });
   });
 };
@@ -17,6 +17,7 @@ export const loginUser = (username, password, history) => dispatch => {
   dispatch({ type: ASYNC_START });
   console.log("Is it working?")
   adapter.auth.login({ username, password }).then(user => {
+    dispatch({ type: ASYNC_FINISH });
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
     localStorage.setItem('user_id', user.id)
