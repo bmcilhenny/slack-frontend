@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { adapter } from '../adapter';
 import ChannelsListContainer from '../containers/ChannelsListContainer';
-import ChannelContainer from './ChannelContainer';
+import ChannelContainer from '../containers/ChannelContainer';
 import {ActionCable} from 'react-actioncable-provider';
 import withAuth from '../hocs/withAuth';
 import Sound from 'react-sound';
