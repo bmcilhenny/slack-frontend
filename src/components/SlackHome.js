@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { adapter } from '../adapter';
-import ChannelsList from './ChannelsList';
+import ChannelsListContainer from '../containers/ChannelsListContainer';
 import ChannelContainer from './ChannelContainer';
 import {ActionCable} from 'react-actioncable-provider';
 import withAuth from '../hocs/withAuth';
 import Sound from 'react-sound';
 
+// This component should be moved into a container that contains the ChannelsListContainer and the ChannelContainer component
 class SlackHome extends React.Component {
   constructor(props) {
     super(props);
@@ -16,17 +17,9 @@ class SlackHome extends React.Component {
     };
   }
 
-  arrayContainsObj = (obj, array) => {
-    var i;
-    for (i = 0; i < array.length; i++) {
-      if (array[i].id === obj.id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
+// a (I want to say) higher order function that delegates an action based on the Socket response
   handleSocketResponse = data => {
+    debugger;
     console.log("Inside the handleSocketResponse", data)
     switch (data.type) {
       case 'NEW_MESSAGE':
@@ -41,7 +34,7 @@ class SlackHome extends React.Component {
         this.props.addMessage(data.payload);
         break;
       case 'NEW_CHANNEL':
-        let userMemberOfChannel = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
+        let userMemberOfChannel = adapter.helpers.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
         let userOwnerOfNewChannel = this.props.currentUser.id === data.payload.channel.owner.id
         if (userMemberOfChannel && userOwnerOfNewChannel) {
           this.props.addChannel(data.payload.channel);
@@ -51,7 +44,7 @@ class SlackHome extends React.Component {
         }
         break;
       case 'NEW_DM':
-        let userMemberOfDM = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
+        let userMemberOfDM = adapter.helpers.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
         let userOwnerOfNewDM = this.props.currentUser.id === data.payload.channel.owner.id
         if (userMemberOfDM && userOwnerOfNewDM) {
           this.props.addChannel(data.payload.channel);
@@ -74,7 +67,7 @@ class SlackHome extends React.Component {
   };
 
 
-  // 
+  //
   render() {
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
@@ -83,7 +76,7 @@ class SlackHome extends React.Component {
           channel={{ channel: 'ChannelChannel', room: `Group${this.props.currentUser.id}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
           onReceived={this.handleSocketResponse}
         />
-        <div className="three wide column slackPurple " ><ChannelsList /></div>
+        <div className="three wide column slackPurple " ><ChannelsListContainer /></div>
         <div className="thirteen wide column"><ChannelContainer /></div>
         <Sound
           url="http://www.pacdv.com/sounds/people_sound_effects/clearing-throat-3.wav"

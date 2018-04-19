@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
-import NewMessageForm from './NewMessageForm';
-import Message from './Message'
 import { Icon, Form, Divider, Button, Image } from 'semantic-ui-react';
+
+import * as actions from '../actions'
+import NewMessageForm from '../components/NewMessageForm';
 import { adapter } from '../adapter';
 
 class ChannelContainer extends React.Component {
