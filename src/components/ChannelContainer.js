@@ -49,11 +49,6 @@ class ChannelContainer extends React.Component {
             </h3>
             <Icon name="users" disabled style={{marginLeft: '10px'}}>{activeChannel.users.length}</Icon>
             <h3 className="channelDescription">{activeChannel.channel_type === 'CHANNEL' ?  `# ${activeChannel.details}` : null}</h3>
-            <Form id="floatedChannelSearchBar">
-              <Form.Group >
-                <Form.Input placeholder='Jump to...' id="message"/>
-              </Form.Group>
-            </Form>
           </div>
           <ul className="messages">
             {activeChannelReadMessages}

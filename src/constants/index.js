@@ -4,6 +4,13 @@ export const HEADERS = {
   'Content-Type': 'application/json',
   'Accepts': 'application/json'
 };
+export const HEADERS_WITH_TOKEN = {
+  'Content-Type': 'application/json',
+  'Accepts': 'application/json',
+  'Authorization': localStorage.getItem('token')
+}
+
+
 export const ActionCableAPIURL = 'ws://localhost:3000/cable';
 
 

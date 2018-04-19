@@ -73,6 +73,8 @@ class SlackHome extends React.Component {
     }
   };
 
+
+  // 
   render() {
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
@@ -93,7 +95,6 @@ class SlackHome extends React.Component {
       </div>
     )
   }
-
 }
 
 const mapStateToProps = state => ({
