@@ -73,7 +73,7 @@ class SlackHome extends React.Component {
     return (
       <div className="ui padded equal height grid">
         <ActionCable
-          channel={{ channel: 'ChannelChannel', room: `Group${this.props.currentUser.id}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
+          channel={{ channel: `channel_${this.props.lastSeenChannel}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
           onReceived={this.handleSocketResponse}
         />
         <div className="three wide column slackPurple " ><ChannelsListContainer /></div>
@@ -94,7 +94,8 @@ const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   channels: state.channel.channels,
   activeChannelID: state.channel.activeChannelID,
-  loggedIn: !!state.auth.currentUser.id
+  loggedIn: !!state.auth.currentUser.id,
+  lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
 export default withAuth(connect(mapStateToProps, actions)(SlackHome));

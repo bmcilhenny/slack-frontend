@@ -2,8 +2,6 @@ import  { API_ROOT, HEADERS, HEADERS_WITH_TOKEN } from '../constants';
 import Sound from 'react-sound';
 
 const getWithToken = url => {
-  // debugger;
-  // const token = localStorage.getItem('token');
   return fetch(url, {
     headers: HEADERS_WITH_TOKEN
   })
@@ -133,54 +131,6 @@ const formatDateTime = (dateStr) => {
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
-
-
-// export const handleSocketResponse = (data) => {
-//   console.log("Inside the handleSocketResponse", data)
-//   switch (data.type) {
-//     case 'NEW_MESSAGE':
-//       let filteredChannels = this.props.channels.filter(channel => channel.id === data.payload.message.channel_id)
-//       debugger;
-//       if (filteredChannels.length && data.payload.message.user.id !== this.props.currentUser.id) {
-//         this.setState({
-//           playStatus: Sound.status.PLAYING
-//         })
-//       }
-//       debugger;
-//       this.props.addMessage(data.payload);
-//       break;
-//     case 'NEW_CHANNEL':
-//       let userMemberOfChannel = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
-//       let userOwnerOfNewChannel = this.props.currentUser.id === data.payload.channel.owner.id
-//       if (userMemberOfChannel && userOwnerOfNewChannel) {
-//         this.props.addChannel(data.payload.channel);
-//         this.props.updateActiveChannel(data.payload.channel.id)
-//       } else if (userMemberOfChannel) {
-//         this.props.addChannel(data.payload.channel);
-//       }
-//       break;
-//     case 'NEW_DM':
-//       let userMemberOfDM = this.arrayContainsObj(this.props.currentUser, data.payload.channel.users)
-//       let userOwnerOfNewDM = this.props.currentUser.id === data.payload.channel.owner.id
-//       if (userMemberOfDM && userOwnerOfNewDM) {
-//         this.props.addChannel(data.payload.channel);
-//         this.props.updateActiveChannel(data.payload.channel.id)
-//       } else if (userMemberOfDM) {
-//         this.props.addChannel(data.payload.channel);
-//       }
-//       break;
-//     case 'NEW_USER':
-//       this.props.addUser(data.payload);
-//       break;
-//     case 'USER_ONLINE':
-//       this.props.userOnline(data.payload)
-//       break;
-//     case 'USER_OFFLINE':
-//       this.props.userOffline(data.payload)
-//     default:
-//       console.log(data);
-//   }
-// };
 
 export const adapter = {
   auth: {

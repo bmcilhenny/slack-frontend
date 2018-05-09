@@ -1,5 +1,5 @@
 // API constants
-export const API_ROOT = 'http://localhost:3000/api/v1/teams/5'
+export const API_ROOT = 'http://localhost:3000/api/v1/teams/1*'
 export const HEADERS = {
   'Content-Type': 'application/json',
   'Accepts': 'application/json'
@@ -15,6 +15,7 @@ export const ActionCableAPIURL = 'ws://localhost:3000/cable';
 
 
 //Action constants
+export const SET_LAST_SEEN_CHANNEL = 'SET_LAST_SEEN_CHANNEL';
 export const ASYNC_START = 'ASYNC_START';
 export const ASYNC_FINISH = 'ASYNC_FINISH';
 export const GRAB_ALL_USERS = 'GRAB_ALL_USERS';
