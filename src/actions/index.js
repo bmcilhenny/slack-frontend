@@ -3,7 +3,7 @@ import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_
 
 
 // Hits the auth controller #show action, grabs token from localStorage and if loggedIn sends back user id, username, team and display name
-export const fetchUser = () => dispatch => {
+export const fetchUserData = () => dispatch => {
   dispatch({ type: ASYNC_START });
   adapter.auth.getCurrentUser().then(user => {
     debugger;
@@ -22,7 +22,7 @@ export const loginUser = (username, password, history) => dispatch => {
     localStorage.setItem('token', user.jwt);
     localStorage.setItem('user_id', user.id)
     dispatch({ type: SET_CURRENT_USER, user });
-    history.push('/slackhome');
+    history.push('/home');
   });
 };
 
@@ -54,7 +54,7 @@ export const grabActiveChannel = (channel_id) => dispatch => {
   })
 }
 
-// The initial API call, which needs to be refactored to only grab the name of the channels, the channel slug (which will be used as a unique identifier and used in the /slackhome/:channelSlug to make another call to the DB to grab that channel's messages) and the length of messages associated with each channel
+// The initial API call, which needs to be refactored to only grab the name of the channels, the channel slug (which will be used as a unique identifier and used in the /home/:channelSlug to make another call to the DB to grab that channel's messages) and the length of messages associated with each channel
 export const grabUserChannels = (user_id) => dispatch => {
   setTimeout(() => {
     adapter.channels.grabUserChannels(user_id).then(channels => {

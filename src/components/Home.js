@@ -9,7 +9,7 @@ import withAuth from '../hocs/withAuth';
 import Sound from 'react-sound';
 
 // This component should be moved into a container that contains the ChannelsListContainer and the ChannelContainer component
-class SlackHome extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,4 +98,4 @@ const mapStateToProps = state => ({
   lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
-export default withAuth(connect(mapStateToProps, actions)(SlackHome));
+export default withAuth(connect(mapStateToProps, actions)(Home));

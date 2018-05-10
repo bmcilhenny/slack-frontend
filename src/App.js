@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import './App.css';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import SlackHome from './components/SlackHome';
+import HomeContainer from './containers/HomeContainer';
+import LandingContainer from './containers/LandingContainer';
 import NoMatch from './components/NoMatch';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { ActionCableAPIURL } from './constants';
@@ -14,34 +13,45 @@ import { ActionCableAPIURL } from './constants';
 
 class App extends Component {
 
-  componentDidMount() {
-    if (localStorage.getItem('token')) {
-      this.props.fetchUser();
-    }
-  }
+  // componentDidMount() {
+  //   if (localStorage.getItem('token')) {
+  //     this.props.fetchUserData();
+  //   }
+  // }
 
   render() {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider>}>
-          </Route>
-          <Route exact path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/slackhome"/> }>
-          </Route>
-          <Route exact path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider> }>
-          </Route>
-          <Route exact path="/slackhome" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <SlackHome /> </ActionCableProvider> }>
-          </Route>
-          <Route component={NoMatch}>
-          </Route>
+          <Route
+            path="/"
+            component={LandingContainer}
+            />
+          <Route
+            path="/home"
+            render= {HomeContainer}
+            />
         </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  loggedIn: !!state.auth.currentUser.id
-});
+// const mapStateToProps = state => ({
+//   loggedIn: !!state.auth.currentUser.id
+// });
 
-export default connect(mapStateToProps, actions)(App);
+export default withRouter(App);
+
+
+// previous routes
+// <Route path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider>}>
+// </Route>
+// <Route path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/home"/> }>
+// </Route>
+// <Route path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider> }>
+// </Route>
+// <Route path="/home" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider> }>
+// </Route>
+// <Route component={NoMatch}>
+// </Route>
