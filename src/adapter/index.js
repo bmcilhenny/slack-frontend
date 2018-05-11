@@ -39,7 +39,7 @@ const getUsers = () => {
   );
 };
 
-const getByChannel = channel_id => {
+const fetchChannel = channel_id => {
   let user_id = localStorage.getItem('user_id')
   debugger;
   return fetch(`${API_ROOT}/users/${user_id}`).then(res => res.json()).then(user => user.channels.find(channel => channel.id === channel_id))
@@ -142,7 +142,7 @@ export const adapter = {
     getUsers
   },
   channels: {
-    getByChannel,
+    fetchChannel,
     grabUserChannels,
     createChannel,
     updateLastSeen

@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
 import { Form, Input, Icon, Label } from 'semantic-ui-react';
-
-import NewChannelModal from '../components/NewChannelModal';
-import NewDMModal from '../components/NewDMModal';
+import NewChannelModal from '../components/modals/NewChannelModal';
+import NewDMModal from '../components/modals/NewDMModal';
 import { Spinner } from '../components/spinners/Spinner.js';
-
 import { adapter } from '../adapter';
 
 class ChannelsList extends React.Component {

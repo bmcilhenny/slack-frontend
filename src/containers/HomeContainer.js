@@ -4,9 +4,11 @@ import * as actions from '../actions';
 import { adapter } from '../adapter';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import HomeLoading from '../components/HomeLoading';
-import Home from '../components/Home'
+import Home from '../components/Home';
 import {ActionCable} from 'react-actioncable-provider';
 import Sound from 'react-sound';
+import withAuth from '../hocs/withAuth'
+
 
 // This component should be moved into a container that contains the ChannelsListContainer and the ActiveChannelContainer component
 class HomeContainer extends React.Component {
@@ -23,20 +25,16 @@ class HomeContainer extends React.Component {
     return (
       <Switch>
         <Route
-          exact path="/home"
+          path="/home"
           component={HomeLoading}
-          />
+        />
         <Route
-          exact path="/home/:channelSlug"
-          component={Home} />
+          path="/home/:channelSlug"
+          component={Home}
+        />
       </Switch>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser,
-  lastSeenChannel: state.auth.currentUser.last_seen_channel
-})
-
-export default withRouter(connect(mapStateToProps, actions)(HomeContainer));
+export default withAuth(HomeContainer);

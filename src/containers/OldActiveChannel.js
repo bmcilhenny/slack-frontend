@@ -7,7 +7,7 @@ import * as actions from '../actions'
 // import NewMessageForm from '../components/NewMessageForm';
 import { adapter } from '../adapter';
 
-class ActiveChannelContainer extends React.Component {
+class OldActiveChannel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -84,7 +84,7 @@ class ActiveChannelContainer extends React.Component {
     return (
       <div >
         <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
-        <div className="ActiveChannelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
+      <div className="OldActiveChannelStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
         {this.props.activeChannelID ? <NewMessageForm className="fixedNewMessage"/> : null}
       </div>
     )
@@ -98,4 +98,4 @@ const mapStateToProps = state => ({
     // channels: state.channel.channels.length ? state.channel.channels : []
 })
 
-export default connect(mapStateToProps, actions)(ActiveChannelContainer);
+export default connect(mapStateToProps, actions)(OldActiveChannel);

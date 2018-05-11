@@ -1,24 +1,32 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Icon, Form, Divider, Button, Image } from 'semantic-ui-react';
+import { Icon, Button} from 'semantic-ui-react';
+import { adapter } from '../adapter';
+import {ActionCable} from 'react-actioncable-provider';
 
 import * as actions from '../actions'
 import NewMessageForm from '../components/messages/NewMessageForm';
 import MessagesList from '../components/messages/MessagesList';
-import { adapter } from '../adapter';
+import ActiveChannelHeader from '../components/ActiveChannelHeader';
 
 class ActiveChannelContainer extends React.Component {
 
-  renderMessages() {
+  componentWillReceiveProps() {
 
   }
 
   render() {
 
-    this.props.channels.length && !this.props.activeChannelID ? this.props.grabActiveChannel(this.props.channels[0].id) : null
     return (
       <div >
+        <ActionCable
+          channel={{ channel: `channel_${this.props.lastSeenChannel.channel_id}`, current_user_id: this.props.currentUser.id}}
+          onReceived={this.handleSocketResponse}
+        />
+      <ActiveChannelHeader
+        name={this.props.lastSeenChannel.slug}
+      />
         <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
         <MessagesList messages={this.props.messages}/>
         <NewMessageForm />
@@ -28,10 +36,9 @@ class ActiveChannelContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    activeChannelID: state.channel.activeChannelID,
+    lastSeenChannel: state.auth.currentUser.last_seen_channel,
     currentUser: state.auth.currentUser.id,
-    loading: state.channel.loading,
-    lastSeenChannel: state.auth.currentUser.last_seen_channel
+    messages: state.auth.currentUser.last_seen_channel.messages
     // channels: state.channel.channels.length ? state.channel.channels : []
 })
 

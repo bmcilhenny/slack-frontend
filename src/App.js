@@ -3,8 +3,8 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import './App.css';
 import HomeContainer from './containers/HomeContainer';
 import LandingContainer from './containers/LandingContainer';
-import NoMatch from './components/NoMatch';
-
+import NoMatch from './components/landing/NoMatch';
+import Home from './components/Home';
 
 
 class App extends React.Component {

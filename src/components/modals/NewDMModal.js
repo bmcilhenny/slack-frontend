@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Button, Header, Image, Modal, Icon , Form, Checkbox, Divider, Dropdown } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import * as actions from '../actions';
-import { adapter} from '../adapter';
+import * as actions from '../../actions';
+import { adapter} from '../../adapter';
 
 class NewDMModal extends React.Component {
   constructor() {

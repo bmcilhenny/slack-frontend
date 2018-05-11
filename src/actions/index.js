@@ -48,7 +48,7 @@ export const logoutUser = () => {
 
 // Before this function runs there should be a logic check to see if a user is a member of any channels. If so, it should grab the one with the most recently read message (this will be a custom function on the Channel model that iterates through all the channels and finds the one most recently read)
 export const grabActiveChannel = (channel_id) => dispatch => {
-  adapter.channels.getByChannel(channel_id).then(channel => {
+  adapter.channels.fetchChannel(channel_id).then(channel => {
     debugger
     console.log("Just finished fething the active channel", channel)
     dispatch({ type: SET_CURRENT_CHANNEL, channel})

@@ -1,8 +1,8 @@
 import React from 'react';
-import {adapter} from '../adapter';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
 import { Link, withRouter } from 'react-router-dom';
+import {adapter} from '../../adapter';
+import * as actions from '../../actions';
 
 class Signup extends React.Component {
   constructor() {

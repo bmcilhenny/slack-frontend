@@ -9,11 +9,23 @@ class MessagesList extends React.Component {
     super(props);
   }
 
+  renderMessages() {
+    return this.props.messages.map((message) =>
+      <li>
+        <Message
+          key={message.id}
+          content={message.content}
+          userName={message.user.display_name}
+          userImage={message.user.image_url}
+        />
+    </li>)
+  }
+
   render() {
     console.log(this.state)
     return (
       <ul>
-        {this.props.messages.map((message) => <li><Message message={message}/></li>)}
+        { this.props.messages ? this.renderMessages() : "No messages"}
       </ul>
     )
   }

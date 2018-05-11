@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SignUp from '../components/Signup';
-import Login from '../components/Login';
+import SignUp from '../components/landing/Signup';
+import Login from '../components/landing/Login';
 import HomeContainer from './HomeContainer';
 
 
