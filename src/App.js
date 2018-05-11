@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import * as actions from './actions';
 import './App.css';
 import HomeContainer from './containers/HomeContainer';
 import LandingContainer from './containers/LandingContainer';
 import NoMatch from './components/NoMatch';
-import { ActionCableProvider } from 'react-actioncable-provider';
-import { ActionCableAPIURL } from './constants';
 
 
 
-class App extends Component {
-
-  // componentDidMount() {
-  //   if (localStorage.getItem('token')) {
-  //     this.props.fetchUserData();
-  //   }
-  // }
+class App extends React.Component {
 
   render() {
     return (
@@ -29,7 +19,10 @@ class App extends Component {
             />
           <Route
             path="/home"
-            render= {HomeContainer}
+            render={HomeContainer}
+            />
+          <Route
+            render={NoMatch}
             />
         </Switch>
       </div>
@@ -37,12 +30,12 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   loggedIn: !!state.auth.currentUser.id
-// });
 
 export default withRouter(App);
 
+// const mapStateToProps = state => ({
+//   loggedIn: !!state.auth.currentUser.id
+// });
 
 // previous routes
 // <Route path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider>}>

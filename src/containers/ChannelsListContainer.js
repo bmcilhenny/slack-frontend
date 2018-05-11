@@ -6,7 +6,7 @@ import { Form, Input, Icon, Label } from 'semantic-ui-react';
 
 import NewChannelModal from '../components/NewChannelModal';
 import NewDMModal from '../components/NewDMModal';
-import { Spinner } from '../components/Spinner.js';
+import { Spinner } from '../components/spinners/Spinner.js';
 
 import { adapter } from '../adapter';
 
@@ -102,4 +102,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, actions)(ChannelsList);
+export default connect(mapStateToProps, actions);

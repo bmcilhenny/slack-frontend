@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Icon, Input } from 'semantic-ui-react';
-import { adapter } from '../adapter';
+import { adapter } from '../../adapter';
 import { connect } from 'react-redux';
 
 class NewMessageForm extends React.Component {
@@ -33,11 +33,13 @@ class NewMessageForm extends React.Component {
   render() {
     console.log(this.state)
     return (
-      <Form onSubmit={this.createMessage}>
-        <Form.Group widths='equal'>
-          <Form.Input fluid placeholder='Type a message...' id="message" value={this.state.message} onChange={this.handleChange}/>
-        </Form.Group>
-      </Form>
+      <div className="fixedNewMessage">
+        <Form onSubmit={this.createMessage}>
+          <Form.Group widths='equal'>
+            <Form.Input fluid placeholder='Type a message...' id="message" value={this.state.message} onChange={this.handleChange}/>
+          </Form.Group>
+        </Form>
+      </div>
     )
   }
 }
@@ -48,10 +50,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, null)(NewMessageForm);
-
-// <div>
-//   <div class="ui fluid action input">
-//     <input type="text" placeholder="Type a message..." />
-//     <div class="ui button">Submit</div>
-//   </div>
-// </div>

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { adapter } from '../adapter';
 import ChannelsListContainer from '../containers/ChannelsListContainer';
-import ChannelContainer from '../containers/ChannelContainer';
+import ActiveChannelContainer from '../containers/ActiveChannelContainer';
 import {ActionCable} from 'react-actioncable-provider';
 import withAuth from '../hocs/withAuth';
 import Sound from 'react-sound';
 
-// This component should be moved into a container that contains the ChannelsListContainer and the ChannelContainer component
+// This component should be moved into a container that contains the ChannelsListContainer and the ActiveChannelContainer component
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -72,19 +72,8 @@ class Home extends React.Component {
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui padded equal height grid">
-        <ActionCable
-          channel={{ channel: `channel_${this.props.lastSeenChannel}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
-          onReceived={this.handleSocketResponse}
-        />
-        <div className="three wide column slackPurple " ><ChannelsListContainer /></div>
-        <div className="thirteen wide column"><ChannelContainer /></div>
-        <Sound
-          url="http://www.pacdv.com/sounds/people_sound_effects/clearing-throat-3.wav"
-          playStatus={this.state.playStatus}
-          onLoading={({ bytesLoaded, bytesTotal }) => console.log(`${bytesLoaded / bytesTotal * 100}% loaded`)}
-          volume='100'
-          onFinishedPlaying={() => this.setState({playStatus: Sound.status.STOPPED})}
-        />
+        <ChannelsListContainer channels={this.props.channels}/>
+        <ActiveChannelContainer channel={this.props.lastSeenChannel}/>
       </div>
     )
   }
@@ -99,3 +88,17 @@ const mapStateToProps = state => ({
 })
 
 export default withAuth(connect(mapStateToProps, actions)(Home));
+
+/* <ActionCable
+  channel={{ channel: `channel_${this.props.lastSeenChannel}`, current_user_id: this.props.currentUser.id, activeChannelID: this.props.ActiveChannelID}}
+  onReceived={this.handleSocketResponse}
+/>
+<div className="three wide column slackPurple " ><ChannelsListContainer /></div>
+<div className="thirteen wide column"><ActiveChannelContainer /></div>
+<Sound
+  url="http://www.pacdv.com/sounds/people_sound_effects/clearing-throat-3.wav"
+  playStatus={this.state.playStatus}
+  onLoading={({ bytesLoaded, bytesTotal }) => console.log(`${bytesLoaded / bytesTotal * 100}% loaded`)}
+  volume='100'
+  onFinishedPlaying={() => this.setState({playStatus: Sound.status.STOPPED})}
+/> */

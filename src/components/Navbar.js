@@ -46,4 +46,4 @@ const mapStateToProps = state => ({
   loggedIn: !!state.auth.currentUser.id
 });
 
-export default connect(mapStateToProps, actions)(Navbar);
+export default connect(mapStateToProps, actions);

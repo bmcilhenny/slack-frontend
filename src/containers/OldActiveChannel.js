@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Icon, Form, Divider, Button, Image } from 'semantic-ui-react';
 
 import * as actions from '../actions'
-import NewMessageForm from '../components/NewMessageForm';
+// import NewMessageForm from '../components/NewMessageForm';
 import { adapter } from '../adapter';
 
-class ChannelContainer extends React.Component {
+class ActiveChannelContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,14 +76,15 @@ class ChannelContainer extends React.Component {
         </div>
       )
     }
-}
+  }
 
   render() {
+
     this.props.channels.length && !this.props.activeChannelID ? this.props.grabActiveChannel(this.props.channels[0].id) : null
     return (
       <div >
         <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
-        <div className="channelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
+        <div className="ActiveChannelContainerStyling">{this.props.loading ? null : this.renderChannelMessages()}</div>
         {this.props.activeChannelID ? <NewMessageForm className="fixedNewMessage"/> : null}
       </div>
     )
@@ -94,7 +95,7 @@ const mapStateToProps = state => ({
     activeChannelID: state.channel.activeChannelID,
     currentUser: state.auth.currentUser.id,
     loading: state.channel.loading,
-    channels: state.channel.channels.length ? state.channel.channels : []
+    // channels: state.channel.channels.length ? state.channel.channels : []
 })
 
-export default connect(mapStateToProps, actions)(ChannelContainer);
+export default connect(mapStateToProps, actions)(ActiveChannelContainer);
