@@ -25,12 +25,12 @@ class HomeContainer extends React.Component {
     return (
       <Switch>
         <Route
-          path="/home"
-          component={HomeLoading}
-        />
-        <Route
           path="/home/:channelSlug"
           component={Home}
+        />
+        <Route
+          path="/home"
+          component={HomeLoading}
         />
       </Switch>
     )
