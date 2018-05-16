@@ -24,15 +24,15 @@ class ChannelsListContainer extends React.Component {
 
   componentDidMount() {
     debugger;
-    // this.props.grabUserChannels(this.props.currentUser.id)
+    this.props.grabUserChannels(this.props.currentUser.id)
     // this.props.grabActiveChannel(this.props.activeChannel)
   }
 
   componentWillUpdate(nextProps) {
-      // if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
-      //   debugger;
-      //   this.props.updateLastChannelReadMessages(this.props.activeChannelID)
-      // }
+      if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
+        debugger;
+        this.props.updateLastChannelReadMessages(this.props.activeChannelID)
+      }
 
       // if (this.props.channels && nextProps) {
       //   debugger

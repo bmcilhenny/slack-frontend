@@ -27,9 +27,8 @@ class Home extends React.Component {
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui padded equal height grid">
-        <h1>HEY</h1>
         <div className="three wide column slackPurple"><ChannelsListContainer /></div>
-        <div className="thirteen wide column"><ActiveChannelContainer /></div>
+        <div className="thirteen wide column"><ActiveChannelContainer channel={this.props.lastSeenChannel} /></div>
       </div>
     )
   }

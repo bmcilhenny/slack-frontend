@@ -4,7 +4,6 @@ import './App.css';
 import HomeContainer from './containers/HomeContainer';
 import LandingContainer from './containers/LandingContainer';
 import NoMatch from './components/landing/NoMatch';
-import Home from './components/Home';
 
 
 class App extends React.Component {

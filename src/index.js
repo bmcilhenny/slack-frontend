@@ -11,10 +11,12 @@ import { ActionCableAPIURL } from './constants';
 const store = configureStore();
 
 ReactDOM.render(
+  <ActionCableProvider url={ActionCableAPIURL}>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </ActionCableProvider>,
   document.getElementById('root')
 );
