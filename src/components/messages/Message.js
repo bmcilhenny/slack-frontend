@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Icon, Input } from 'semantic-ui-react';
+import { Form, Button, Icon, Input, Image } from 'semantic-ui-react';
 import { adapter } from '../../adapter';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,7 @@ class Message extends React.Component {
     console.log(this.state)
     return (
       <div className="message-container">
-        {this.props.message}
+        <span className="bold"><Image src={this.props.userImage} className="noBorderRadius" avatar/> {this.props.userName}</span> <span className="italic">{adapter.helpers.formatDateTime(this.props.createdAt)}</span>: {this.props.content}
       </div>
     )
   }

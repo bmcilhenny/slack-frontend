@@ -22,7 +22,7 @@ class NewMessageForm extends React.Component {
    console.log("these are the props", this.props)
    if (this.state.message !== "") {
 
-     adapter.messages.createMessage({content: this.state.message, user_id: this.props.currentUser.id, channel_id: this.props.activeChannelID})
+     adapter.messages.createMessage({content: this.state.message, user_id: this.props.currentUser.id, channel_id: this.props.lastSeenChannelID})
 
      this.setState({
        message: ''
@@ -46,7 +46,8 @@ class NewMessageForm extends React.Component {
 
 const mapStateToProps = state => ({
   activeChannelID: state.channel.activeChannelID,
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  lastSeenChannelID: state.auth.currentUser.last_seen_channel.channel_id,
 })
 
 export default connect(mapStateToProps, null)(NewMessageForm);

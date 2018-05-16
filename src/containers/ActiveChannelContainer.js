@@ -84,10 +84,9 @@ class ActiveChannelContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    lastSeenChannel: state.auth.currentUser.last_seen_channel,
     currentUser: state.auth.currentUser.id,
-    messages: state.auth.currentUser.last_seen_channel.messages
-
+    messages: state.auth.currentUser.last_seen_channel.messages,
+    lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
 export default connect(mapStateToProps, actions)(ActiveChannelContainer);

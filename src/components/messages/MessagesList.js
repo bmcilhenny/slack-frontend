@@ -17,12 +17,12 @@ class MessagesList extends React.Component {
           content={message.content}
           userName={message.user.display_name}
           userImage={message.user.image_url}
+          createdAt={message.created_at}
         />
     </li>)
   }
 
   render() {
-    console.log(this.state)
     return (
       <ul>
         { this.props.messages ? this.renderMessages() : "No messages"}
