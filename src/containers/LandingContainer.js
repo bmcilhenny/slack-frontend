@@ -30,7 +30,7 @@ class LandingContainer extends React.Component {
             exact path="/signup"
             component={SignUp} />
           <Route
-            exact path="/home"
+            path="/home"
             component={HomeContainer}
             />
         </Switch>

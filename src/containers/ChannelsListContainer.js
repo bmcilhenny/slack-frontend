@@ -8,7 +8,7 @@ import NewDMModal from '../components/modals/NewDMModal';
 import { Spinner } from '../components/spinners/Spinner.js';
 import { adapter } from '../adapter';
 
-class ChannelsList extends React.Component {
+class ChannelsListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,4 +100,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, actions);
+export default connect(mapStateToProps, actions)(ChannelsListContainer);

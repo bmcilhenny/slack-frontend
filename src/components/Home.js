@@ -19,7 +19,7 @@ class Home extends React.Component {
   componentDidMount() {
     debugger;
     if (localStorage.getItem('token')) {
-      this.props.fetchUserData();
+      // this.props.fetchUserData();
     }
   }
 
@@ -43,4 +43,4 @@ const mapStateToProps = state => ({
   lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps, actions)(Home)
