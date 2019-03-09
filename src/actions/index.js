@@ -22,9 +22,7 @@ export const fetchUser = () => dispatch => {
 export const loginUser = (username, password, history) => dispatch => {
   dispatch({ type: ASYNC_START });
   console.log("Is it working?")
-  debugger;
   adapter.auth.login({ username, password }).then(user => {
-    debugger;
     dispatch({ type: ASYNC_FINISH });
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
@@ -63,14 +61,14 @@ export const grabActiveChannel = (channel_id) => dispatch => {
 }
 
 // The initial API call, which needs to be refactored to only grab the name of the channels, the channel slug (which will be used as a unique identifier and used in the /home/:channelSlug to make another call to the DB to grab that channel's messages) and the length of messages associated with each channel
-export const grabUserChannels = (user_id) => dispatch => {
-  setTimeout(() => {
+export const fetchUserChannels = (user_id) => dispatch => {
+  // setTimeout(() => {
     adapter.channels.grabUserChannels(user_id).then(channels => {
     // console.log("Just finished fething", channels)
     dispatch({ type: GRAB_ALL_USER_CHANNELS, channels})
-    localStorage.setItem('userChannels', channels);
+    // localStorage.setItem('userChannels', channels);
       })
-    }, 1000);
+    // }, 1000);
 }
 
 // Dispatches a message to the store, will be refactored to only account for length of a User Channel's messages changing

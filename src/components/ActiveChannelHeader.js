@@ -10,11 +10,7 @@ class ActiveChannelHeader extends React.Component {
 
   render() {
     console.log(this.state)
-    return (
-      <div>
-        <h1>{this.props.name}</h1>
-      </div>
-    )
+    return <h1>{this.props.name}</h1>
   }
 }
 

@@ -65,7 +65,12 @@ class ActiveChannelContainer extends React.Component {
     }
   };
 
+  renderNewMessageForm = () => {
+    return this.props.channels ? <NewMessageForm/> : <h1>Create a Channel to start messaging</h1>
+  }
+
   render() {
+    debugger;
     return (
       <div >
         <ActionCable
@@ -77,7 +82,7 @@ class ActiveChannelContainer extends React.Component {
         />
         <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
         <MessagesList messages={this.props.messages}/>
-        <NewMessageForm />
+        {this.renderNewMessageForm()}
       </div>
     )
   }
@@ -86,7 +91,8 @@ class ActiveChannelContainer extends React.Component {
 const mapStateToProps = state => ({
     currentUser: state.auth.currentUser.id,
     messages: state.auth.currentUser.last_seen_channel.messages,
-    lastSeenChannel: state.auth.currentUser.last_seen_channel
+    lastSeenChannel: state.auth.currentUser.last_seen_channel,
+    anyChannels: state.auth.currentUser.channels
 })
 
 export default connect(mapStateToProps, actions)(ActiveChannelContainer);
