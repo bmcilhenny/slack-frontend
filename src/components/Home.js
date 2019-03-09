@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { adapter } from '../adapter';
 import ChannelsListContainer from '../containers/ChannelsListContainer';
 import ActiveChannelContainer from '../containers/ActiveChannelContainer';
-import {ActionCable} from 'react-actioncable-provider';
-import { withRouter } from 'react-router'
 import Sound from 'react-sound';
 
 class Home extends React.Component {
@@ -16,14 +13,8 @@ class Home extends React.Component {
     };
   }
 
-  componentDidMount() {
-    if (localStorage.getItem('token')) {
-      // this.props.fetchUserData();
-      debugger;
-    }
-  }
-
   render() {
+    debugger;
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui padded equal height grid">
@@ -42,4 +33,4 @@ const mapStateToProps = state => ({
   lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
-export default connect(mapStateToProps, actions)(Home)
+export default connect(mapStateToProps, actions)(Home);

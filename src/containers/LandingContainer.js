@@ -4,24 +4,22 @@ import SignUp from '../components/landing/Signup';
 import Login from '../components/landing/Login';
 import HomeContainer from './HomeContainer';
 
-
 class LandingContainer extends React.Component {
 
   componentDidMount() {
-    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login' || window.location.pathname === '/home')) {
+    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
       this.props.history.push("/home")
-    } else {
-      this.props.history.push("/login")
     }
   }
 
-  // componentWillReceiveProps(prevProps) {
-  //   if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
-  //     this.props.history.push("/home")
-  //   }
-  // }
+  componentWillReceiveProps(prevProps) {
+    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
+      this.props.history.push("/home")
+    }
+  }
 
   render() {
+    console.log("IN THE LANDING CONTAINER");
     return (
         <Switch>
           <Route

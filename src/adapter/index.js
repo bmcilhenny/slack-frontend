@@ -29,8 +29,11 @@ const signup = data => {
 };
 
 const getCurrentUser = () => {
-  // debugger;
   return getWithToken(`${API_ROOT}/current_user`);
+};
+
+const getUserData = () => {
+  return getWithToken(`${API_ROOT}/user_data`);
 };
 
 const getUsers = () => {

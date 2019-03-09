@@ -39,7 +39,6 @@ class Login extends React.Component {
                 <img className="ui centered medium image" src="https://cdn.worldvectorlogo.com/logos/slack.svg"/>
                 <div className="ui left aligned segment purple" >
                   <h4 className="ui dividing header large">Login</h4>
-
                   <div className="ui inverted form">
                     <form onSubmit={this.handleSubmit}>
                       <div className="field">
@@ -64,7 +63,6 @@ class Login extends React.Component {
           </div>
         </div>
       </div>
-
     );
   }
 }

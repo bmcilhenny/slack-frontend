@@ -1,18 +1,22 @@
 import { adapter } from '../adapter';
 import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
-//ASYNC_START and ASYNC_FINISH don't do anything at this time
+
+export const fetchUser = () => dispatch => {
+  adapter.auth.getCurrentUser().then(user => {
+    dispatch({ type: SET_CURRENT_USER, user })
+  });
+};
+
 
 // Hits the auth controller #show action, grabs token from localStorage and if loggedIn sends back user id, username, team and display name
-export const fetchUserData = () => dispatch => {
-  dispatch({ type: ASYNC_START });
-  setTimeout(() => {
-    adapter.auth.getCurrentUser().then(user => {
-      debugger;
-      dispatch({ type: SET_CURRENT_USER, user });
-      dispatch({ type: ASYNC_FINISH });
-    });
-  }, 3000);
-};
+// export const fetchUserData = () => dispatch => {
+//   dispatch({ type: ASYNC_START });
+//   adapter.auth.getUserData().then(user_data => {
+//     debugger;
+//     dispatch({ type: SET_USER_DATA, user_data });
+//     dispatch({ type: ASYNC_FINISH });
+//   });
+// };
 
 // Calls the login action which creates the auth session, if authenticated send back the token, user id, user display name, and user team
 export const loginUser = (username, password, history) => dispatch => {

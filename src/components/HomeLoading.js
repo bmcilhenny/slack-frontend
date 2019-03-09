@@ -14,6 +14,7 @@ class HomeLoading extends React.Component {
   }
 
   render() {
+    debugger;
     return (
       <div className="ui padded equal height grid">
         <div className="three wide column slackPurple"><Spinner /></div>
