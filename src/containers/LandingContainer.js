@@ -8,16 +8,18 @@ import HomeContainer from './HomeContainer';
 class LandingContainer extends React.Component {
 
   componentDidMount() {
-    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
+    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login' || window.location.pathname === '/home')) {
       this.props.history.push("/home")
+    } else {
+      this.props.history.push("/login")
     }
   }
 
-  componentWillReceiveProps(prevProps) {
-    if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
-      this.props.history.push("/home")
-    }
-  }
+  // componentWillReceiveProps(prevProps) {
+  //   if (localStorage.getItem('token') && (window.location.pathname === '/' || window.location.pathname === '/signup' || window.location.pathname === '/login')) {
+  //     this.props.history.push("/home")
+  //   }
+  // }
 
   render() {
     return (

@@ -17,9 +17,9 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     if (localStorage.getItem('token')) {
       // this.props.fetchUserData();
+      debugger;
     }
   }
 

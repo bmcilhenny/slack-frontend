@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import 'semantic-ui-css/semantic.min.css';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { ActionCableAPIURL } from './constants';
+
 const store = configureStore();
 
 ReactDOM.render(

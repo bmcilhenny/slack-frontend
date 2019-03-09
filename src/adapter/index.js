@@ -13,7 +13,7 @@ const login = data => {
   // console.log("Inside the adapter", data)
   return fetch(`${API_ROOT}/login`, {
     method: 'POST',
-    headers: HEADERS,
+    headers: HEADERS_WITH_TOKEN,
     body: JSON.stringify(data)
   })
   .then(res => res.json());
