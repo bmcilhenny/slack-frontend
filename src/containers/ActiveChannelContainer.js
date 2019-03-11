@@ -95,4 +95,4 @@ const mapStateToProps = state => ({
     anyChannels: state.auth.currentUser.channels
 })
 
-export default connect(mapStateToProps, actions)(ActiveChannelContainer);
+export default withRouter(connect(mapStateToProps, actions)(ActiveChannelContainer));

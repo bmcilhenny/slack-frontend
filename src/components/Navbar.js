@@ -1,19 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import * as actions from '../actions'
 
-class Navbar extends React.Component {
+class Navbar = extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
-
+    this.state = {};
   }
 
+  handleLogout = e => {
+    e.preventDefault();
+    console.log(this.props)
+    this.props.logoutUser(this.props.history);
+  };
 
   render() {
-    // const loggedIn = !!this.props.currentUser.id;
+    debugger;
     return (
       <div className={`ui top fixed inverted menu`}>
         <Link to="/" className="item">
@@ -25,10 +28,7 @@ class Navbar extends React.Component {
         <div className="right menu">
           {this.props.loggedIn ? (
               <a
-                onClick={e => {
-                  e.preventDefault();
-                  this.props.logoutUser();
-                }}
+                onClick={this.handleLogout}
               className="item">
                 Sign Out
               </a>
@@ -41,9 +41,9 @@ class Navbar extends React.Component {
   }
 }
 
-// export default withRouter(Navbar);
 const mapStateToProps = state => ({
-  loggedIn: !!state.auth.currentUser.id
+  loggedIn: !!state.auth.currentUser.id,
+  currentUser: state.auth.currentUser
 });
 
-export default connect(mapStateToProps, actions);
+export default withRouter(connect(mapStateToProps, actions)(Navbar));

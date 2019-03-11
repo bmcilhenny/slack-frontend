@@ -23,6 +23,10 @@ class LandingContainer extends React.Component {
     return (
         <Switch>
           <Route
+            exact path="/"
+            component={Login}
+            />
+          <Route
             exact path="/login"
             component={Login}
             />

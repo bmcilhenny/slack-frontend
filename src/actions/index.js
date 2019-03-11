@@ -44,9 +44,10 @@ export const loginUser = (username, password, history) => dispatch => {
 // };
 
 // Logout user, removes token from local storage. Return line does not have a purpose at the moment.
-export const logoutUser = () => {
-  // console.log("CLICKED")
+export const logoutUser = history => dispatch => {
+  debugger;
   localStorage.removeItem('token');
+  history.push('/login');
   return { type: LOGOUT_USER };
 };
 
