@@ -21,8 +21,8 @@ export const fetchUser = () => dispatch => {
 // Calls the login action which creates the auth session, if authenticated send back the token, user id, user display name, and user team
 export const loginUser = (username, password, history) => dispatch => {
   dispatch({ type: ASYNC_START });
-  console.log("Is it working?")
   adapter.auth.login({ username, password }).then(user => {
+    debugger;
     dispatch({ type: ASYNC_FINISH });
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
@@ -32,16 +32,16 @@ export const loginUser = (username, password, history) => dispatch => {
   });
 };
 
-// export const signup = user => dispatch => {
-//   dispatch({ type: 'ASYNC_START' });
-//   adapter.user.signup(user).then(res => {
-//     if (res.errors) {
-//       dispatch({ type: 'ASYNC_ERROR_USER', data: res.errors });
-//     } else {
-//       dispatch({ type: 'SIGNEDUP' });
-//     }
-//   });
-// };
+export const signup = user => dispatch => {
+  dispatch({ type: 'ASYNC_START' });
+  adapter.user.signup(user).then(res => {
+    if (res.errors) {
+      dispatch({ type: 'ASYNC_ERROR_USER', data: res.errors });
+    } else {
+      dispatch({ type: 'SIGNEDUP' });
+    }
+  });
+};
 
 // Logout user, removes token from local storage. Return line does not have a purpose at the moment.
 export const logoutUser = history => dispatch => {

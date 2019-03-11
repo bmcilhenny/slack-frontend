@@ -14,7 +14,6 @@ class Home extends React.Component {
   }
 
   render() {
-    debugger;
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui padded equal height grid">

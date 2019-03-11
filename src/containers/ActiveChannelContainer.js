@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Icon, Button} from 'semantic-ui-react';
@@ -65,24 +65,38 @@ class ActiveChannelContainer extends React.Component {
     }
   };
 
-  renderNewMessageForm = () => {
-    return this.props.channels ? <NewMessageForm/> : <h1>Create a Channel to start messaging</h1>
+  renderActionCable = () => {
+    if (this.props.lastSeenChannel.name) {
+      debugger;
+      return (
+        <Fragment>
+          <ActionCable
+            channel={{ channel: `ChannelsChannel`, id: this.props.lastSeenChannel.channel_id, current_user_id: this.props.currentUser.id}}
+            onReceived={this.handleSocketResponse}
+          />
+          <ActiveChannelHeader
+            name={this.props.lastSeenChannel.name}
+          />
+          <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
+          <MessagesList messages={this.props.lastSeenChannel.messages}/>
+          <NewMessageForm />
+        </Fragment>
+      )
+    } else {
+      return (
+        <Fragment>
+          <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
+          <h1>Create a Channel to begin jib jabbing</h1>
+        </Fragment>
+      )
+    }
   }
 
   render() {
     debugger;
     return (
       <div >
-        <ActionCable
-          channel={{ channel: `ChannelsChannel`, id: this.props.lastSeenChannel.channel_id, current_user_id: this.props.currentUser.id}}
-          onReceived={this.handleSocketResponse}
-        />
-        <ActiveChannelHeader
-          name={this.props.lastSeenChannel.name}
-        />
-        <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
-        <MessagesList messages={this.props.messages}/>
-        {this.renderNewMessageForm()}
+        {this.renderActionCable()}
       </div>
     )
   }
@@ -90,7 +104,6 @@ class ActiveChannelContainer extends React.Component {
 
 const mapStateToProps = state => ({
     currentUser: state.auth.currentUser.id,
-    messages: state.auth.currentUser.last_seen_channel.messages,
     lastSeenChannel: state.auth.currentUser.last_seen_channel,
     anyChannels: state.auth.currentUser.channels
 })

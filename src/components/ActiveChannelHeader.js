@@ -1,17 +1,7 @@
 import React from 'react';
-import { Form, Button, Icon, Input } from 'semantic-ui-react';
-import { adapter } from '../adapter';
-import { connect } from 'react-redux';
 
-class ActiveChannelHeader extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    console.log(this.state)
-    return <h1>{this.props.name}</h1>
-  }
+const ActiveChannelHeader = (props) => {
+    return <h1>{props.name}</h1>
 }
 
 export default ActiveChannelHeader;
