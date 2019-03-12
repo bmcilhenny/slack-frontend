@@ -1,5 +1,5 @@
 import { adapter } from '../adapter';
-import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
+import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_TEAMMATES, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
 
 export const fetchUser = () => dispatch => {
   adapter.auth.getCurrentUser().then(user => {
@@ -63,13 +63,15 @@ export const grabActiveChannel = (channel_id) => dispatch => {
 
 // The initial API call, which needs to be refactored to only grab the name of the channels, the channel slug (which will be used as a unique identifier and used in the /home/:channelSlug to make another call to the DB to grab that channel's messages) and the length of messages associated with each channel
 export const fetchUserChannels = (user_id) => dispatch => {
-  // setTimeout(() => {
     adapter.channels.grabUserChannels(user_id).then(channels => {
-    // console.log("Just finished fething", channels)
-    dispatch({ type: GRAB_ALL_USER_CHANNELS, channels})
-    // localStorage.setItem('userChannels', channels);
-      })
-    // }, 1000);
+      dispatch({ type: GRAB_ALL_USER_CHANNELS, channels})
+    })
+}
+
+export const fetchTeammates = (team_id) => dispatch => {
+  adapter.team.getTeammates(team_id).then(teammates => {
+    dispatch({ type: SET_TEAMMATES, teammates})
+  }) 
 }
 
 // Dispatches a message to the store, will be refactored to only account for length of a User Channel's messages changing

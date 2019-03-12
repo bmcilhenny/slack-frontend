@@ -18,18 +18,15 @@ class ActiveChannelContainer extends React.Component {
   }
 
   handleSocketResponse = data => {
-    debugger;
     console.log("Inside the handleSocketResponse", data)
     switch (data.type) {
       case 'NEW_MESSAGE':
         let filteredChannels = this.props.channels.filter(channel => channel.id === data.payload.message.channel_id)
-        debugger;
         if (filteredChannels.length && data.payload.message.user.id !== this.props.currentUser.id) {
           this.setState({
             playStatus: Sound.status.PLAYING
           })
         }
-        debugger;
         this.props.addMessage(data.payload);
         break;
       case 'NEW_CHANNEL':
@@ -66,38 +63,38 @@ class ActiveChannelContainer extends React.Component {
   };
 
   renderActionCable = () => {
-    if (this.props.lastSeenChannel.name) {
-      debugger;
-      return (
-        <Fragment>
-          <ActionCable
-            channel={{ channel: `ChannelsChannel`, id: this.props.lastSeenChannel.channel_id, current_user_id: this.props.currentUser.id}}
-            onReceived={this.handleSocketResponse}
-          />
-          <ActiveChannelHeader
-            name={this.props.lastSeenChannel.name}
-          />
-          <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
-          <MessagesList messages={this.props.lastSeenChannel.messages}/>
-          <NewMessageForm />
-        </Fragment>
-      )
-    } else {
-      return (
-        <Fragment>
-          <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
-          <h1>Create a Channel to begin jib jabbing</h1>
-        </Fragment>
-      )
+    if (this.props.lastSeenChannel) {
+      if (this.props.lastSeenChannel.name) {
+        return (
+          <Fragment>
+            <ActionCable
+              channel={{ channel: `ChannelsChannel`, id: this.props.lastSeenChannel.channel_id, current_user_id: this.props.currentUser.id}}
+              onReceived={this.handleSocketResponse}
+            />
+            <ActiveChannelHeader
+              name={this.props.lastSeenChannel.name}
+            />
+            <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
+            <MessagesList messages={this.props.lastSeenChannel.messages}/>
+            <NewMessageForm />
+          </Fragment>
+        )
+      } else {
+        return (
+          <Fragment>
+            <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
+            <h1>Create a Channel to begin jib jabbing</h1>
+          </Fragment>
+        )
+      }
     }
   }
 
   render() {
-    debugger;
     return (
-      <div >
+      <Fragment >
         {this.renderActionCable()}
-      </div>
+      </Fragment>
     )
   }
 }
@@ -105,7 +102,8 @@ class ActiveChannelContainer extends React.Component {
 const mapStateToProps = state => ({
     currentUser: state.auth.currentUser.id,
     lastSeenChannel: state.auth.currentUser.last_seen_channel,
-    anyChannels: state.auth.currentUser.channels
+    channels: state.auth.currentUser.channels,
+    anyChannels: !!state.auth.currentUser.channels
 })
 
 export default withRouter(connect(mapStateToProps, actions)(ActiveChannelContainer));

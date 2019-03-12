@@ -1,5 +1,6 @@
 // API constants
 export const API_ROOT = 'http://localhost:3000/api/v1/teams/1';
+export const API_REFACTORED_ROOT = 'http://localhost:3000/api/v1';
 export const HEADERS = {
   'Content-Type': 'application/json',
   'Accepts': 'application/json'
@@ -30,3 +31,4 @@ export const ADD_DM_TO_USER = 'ADD_DM_TO_USER';
 export const UPDATE_ACTIVE_CHANNEL = 'UPDATE_ACTIVE_CHANNEL';
 export const UPDATE_LAST_CHANNEL_READ_MESSAGES = 'UPDATE_LAST_CHANNEL_READ_MESSAGES';
 export const LOGOUT_USER = 'LOGOUT_USER';
+export const SET_TEAMMATES = 'SET_TEAMMATES';

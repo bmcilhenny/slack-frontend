@@ -64,7 +64,7 @@ class NewChannelModal extends React.Component {
             <Form.Input placeholder='Enter channel name here...' id="name" onChange={this.handleChange} value={this.state.name}/>
             <Form.Input placeholder='Enter channel details here...' id="details" onChange={this.handleChange} value={this.state.details}/>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Teammate(s)' fluid multiple search selection options={adapter.helpers.populateModalsWithTeammateOptions(this.props.team)} onChange={this.handleDropDownChange} />
+            {/* <Dropdown placeholder='Select Teammate(s)' fluid multiple search selection options={adapter.helpers.getTeammates(this.props.team_id)} onChange={this.handleDropDownChange} /> */}
           </Form>
         </Modal.Content>
         <Modal.Actions>

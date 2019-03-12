@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import { Switch, Route } from 'react-router-dom';
 import HomeLoading from '../components/HomeLoading';
 import Home from '../components/Home';
+import HomeNoChannels from '../components/HomeNoChannels';
 import withAuth from '../hocs/withAuth'
 
 
@@ -11,10 +12,12 @@ import withAuth from '../hocs/withAuth'
 class HomeContainer extends React.Component {
   
   componentDidMount() {
-    debugger;
-    let channelSlug = this.props.lastSeenChannel.name;
+    let channelSlug = this.props.lastSeenChannel;
     if (channelSlug) {
-      this.props.history.push(`/home/${channelSlug}`)
+      if (channelSlug.name) {
+        debugger;
+        this.props.history.push(`/home/${channelSlug}`)
+      }
     }
   }
   
@@ -29,7 +32,7 @@ class HomeContainer extends React.Component {
         />
         <Route
           path="/home"
-          component={Home}
+          component={HomeNoChannels}
         />
         {/* <Route
           path="/home"

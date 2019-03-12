@@ -7,10 +7,8 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], team
       debugger;
       return {...state, activeChannelID: action.channel.id}
     case UPDATE_ACTIVE_CHANNEL:
-      // debugger;
       return {...state, activeChannelID: parseInt(action.id)}
     case UPDATE_LAST_CHANNEL_READ_MESSAGES:
-      // debugger;
       let copiedChannels2 = [...state.channels]
       let foundChannel2 = copiedChannels2.find(channel => channel.id === action.id);
       if (foundChannel2) {
@@ -21,7 +19,6 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], team
         let newRedMessages2 = [...copiedReadMessages2, ...copiedUnreadMessages2]
         let updatedChannel2 = {...foundChannel2, readMessages: newRedMessages2};
         updatedChannel2 = {...updatedChannel2, unreadMessages: []}
-        // debugger;
         return {...state, channels: [...state.channels.slice(0, index2), updatedChannel2 , ...state.channels.slice(index2 + 1.0
         )]}
       } else {
@@ -32,7 +29,6 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], team
     case ADD_MESSAGE_TO_CHANNEL:
       let copiedChannels = [...state.channels]
       let foundChannel = copiedChannels.find(channel => channel.id === action.message.message.channel_id);
-      // debugger;
       if (foundChannel) {
         let index = state.channels.indexOf(foundChannel)
         let updatedMessages = [...foundChannel.unreadMessages, action.message]
@@ -43,7 +39,6 @@ export const channelsReducer = (state = {activeChannelID: '', channels: [], team
         return {...state, channels: [...state.channels]}
       }
     case ADD_CHANNEL_TO_USER:
-      // debugger;
       let copiedChannel = [...state.channels];
       return {...state, channels: [...copiedChannel, action.channel]}
     case USER_ONLINE:

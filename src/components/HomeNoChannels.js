@@ -5,20 +5,12 @@ import ChannelsListContainer from '../containers/ChannelsListContainer';
 import ActiveChannelContainer from '../containers/ActiveChannelContainer';
 import Sound from 'react-sound';
 
-class Home extends React.Component {
+class HomeNoChannels extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playStatus: Sound.status.STOPPED
     };
-  }
-
-  componentDidMount() {
-    
-  }
-
-  componentWillReceiveProps(nextProps) {
-
   }
 
   render() {
@@ -40,4 +32,4 @@ const mapStateToProps = state => ({
   lastSeenChannel: state.auth.currentUser.last_seen_channel
 })
 
-export default connect(mapStateToProps, actions)(Home);
+export default connect(mapStateToProps, actions)(HomeNoChannels);

@@ -3,18 +3,28 @@ import { Button, Header, Image, Modal, Icon , Form, Checkbox, Divider, Dropdown 
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { adapter} from '../../adapter';
+import { helper } from '../../helpers';
 
 class NewDMModal extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      modalOpen: false,
-      users: []
+      modalOpen: false
     }
   }
 
-   handleOpen = () => this.setState({ modalOpen: true })
+  componentDidMount() {
+    console.log("MOUNTING DM")
+    debugger;
+    this.props.fetchTeammates(this.props.currentUser.team.id)
+  }
+
+  populateTeammates() {
+    return helper.modal.formatTeammates(this.props.teammates)
+  }
+
+  handleOpen = () => this.setState({ modalOpen: true })
 
   close = () => {
     console.log('Clicked')
@@ -42,7 +52,7 @@ class NewDMModal extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Modal
         trigger={<Icon inverted name='add circle' onClick={this.handleOpen} style={{position: 'relative', float: 'right'}}></Icon>}
@@ -52,7 +62,7 @@ class NewDMModal extends React.Component {
         <Modal.Content>
           <Form>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={adapter.helpers.populateModalsWithTeammateOptions(this.props.team)} onChange={this.handleDropDownChange}/>
+            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={this.populateTeammates()} onChange={this.handleDropDownChange}/>
           </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -70,7 +80,7 @@ class NewDMModal extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
-  team: state.channel.team
+  teammates: state.teammates.teammates
 })
 
 export default connect(mapStateToProps, actions)(NewDMModal);
