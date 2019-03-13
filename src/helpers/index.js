@@ -1,4 +1,5 @@
 const formatTeammates = (teammates) => {
+    debugger;
     return teammates.map(teammate => ({text: teammate.display_name, value: teammate.id, image: ({ avatar: true, src: teammate.image_url})}))
 }
 

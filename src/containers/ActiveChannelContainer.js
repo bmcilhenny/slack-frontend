@@ -9,7 +9,6 @@ import Sound from 'react-sound';
 import * as actions from '../actions'
 import NewMessageForm from '../components/messages/NewMessageForm';
 import MessagesList from '../components/messages/MessagesList';
-import ActiveChannelHeader from '../components/ActiveChannelHeader';
 
 class ActiveChannelContainer extends React.Component {
 
@@ -65,15 +64,14 @@ class ActiveChannelContainer extends React.Component {
   renderActionCable = () => {
     if (this.props.lastSeenChannel) {
       if (this.props.lastSeenChannel.name) {
+        const lastSeenChannelName = this.props.lastSeenChannel.name
         return (
           <Fragment>
             <ActionCable
               channel={{ channel: `ChannelsChannel`, id: this.props.lastSeenChannel.channel_id, current_user_id: this.props.currentUser.id}}
               onReceived={this.handleSocketResponse}
             />
-            <ActiveChannelHeader
-              name={this.props.lastSeenChannel.name}
-            />
+            <h1>{lastSeenChannelName}</h1>
             <Button circular black style={{position: 'absolute', right: '2%', top: '2%', zIndex: '2'}} onClick={e => {this.props.logoutUser(this.props.history)}}><Icon name="sign out"></Icon></Button>
             <MessagesList messages={this.props.lastSeenChannel.messages}/>
             <NewMessageForm />

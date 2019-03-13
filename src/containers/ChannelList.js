@@ -1,14 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
-import { Form, Input, Icon, Label } from 'semantic-ui-react';
+import { Form, Icon, Label } from 'semantic-ui-react';
 import NewChannelModal from '../components/modals/NewChannelModal';
 import NewDMModal from '../components/modals/NewDMModal';
 import { Spinner } from '../components/spinners/Spinner.js';
 import { adapter } from '../adapter';
+import * as actions from '../actions'
 
-class ChannelsListContainer extends React.Component {
+class ChannelList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,15 +16,15 @@ class ChannelsListContainer extends React.Component {
     };
   }
 
-  handleChannelClick = (event) => {
-    this.props.updateActiveChannel(event.target.id);
-    adapter.channels.updateLastSeen({user_id: this.props.currentUser.id, channel_id: event.target.id})
-  }
+//   handleChannelClick = (event) => {
+//     this.props.updateActiveChannel(event.target.id);
+//     adapter.channels.updateLastSeen({user_id: this.props.currentUser.id, channel_id: event.target.id})
+//   }
 
-  componentDidMount() {
-    this.props.fetchUserChannels(this.props.currentUser.id)
-    this.props.activeChannel ? this.props.grabActiveChannel(this.props.activeChannel) : null
-  }
+//   componentDidMount() {
+//     this.props.fetchUserChannels(this.props.currentUser.id)
+//     this.props.activeChannel ? this.props.grabActiveChannel(this.props.activeChannel) : null
+//   }
 
   componentWillUpdate(nextProps) {
       // if (this.props.activeChannelID && nextProps.activeChannelID !== this.props.activeChannelID) {
@@ -59,14 +58,14 @@ class ChannelsListContainer extends React.Component {
     }
 
     return (
-      <div>
+      <Fragment>
         <h2 className="white">{this.props.currentUser.team.name} <Icon name="bell outline white" style={{position: 'relative', float: 'right'}}></Icon></h2>
-        <h3 className="white read nameLabel"><Icon name='bullseye green'></Icon> {this.props.currentUser.display_name}</h3>
-        <Form>
+        <h3 className="white read nameLabel"><Icon name="bullseye green"></Icon> {this.props.currentUser.display_name}</h3>
+        {/* <Form>
           <Form.Group widths='equal'>
             <Form.Input fluid placeholder='Jump to...' id="message"/>
           </Form.Group>
-        </Form>
+        </Form> */}
         <h3 className="white">Channels < NewChannelModal/></h3>
         <ul className="white">
         {filteredUserChannels}
@@ -75,7 +74,7 @@ class ChannelsListContainer extends React.Component {
         <ul className="white">
         {filteredUserDMs}
         </ul>
-      </div>
+      </Fragment>
     );
   }
 
@@ -90,13 +89,9 @@ class ChannelsListContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  activeChannel: state.channel.activeChannel,
-  activeChannelID: state.channel.activeChannelID,
   currentUser: state.auth.currentUser,
-  channels: state.channel.channels,
-  loading: state.async.loading,
-  team: state.channel.team
+  channels: state.channels,
+  loading: state.async.loading
 })
 
-
-export default connect(mapStateToProps, actions)(ChannelsListContainer);
+export default connect(mapStateToProps, actions)(ChannelList);

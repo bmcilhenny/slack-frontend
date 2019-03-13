@@ -90,8 +90,7 @@ class NewChannelModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser,
-  team: state.channel.team
+  currentUser: state.auth.currentUser
 })
 
 export default connect(mapStateToProps, actions)(NewChannelModal);

@@ -16,7 +16,6 @@ class NewDMModal extends React.Component {
 
   componentDidMount() {
     console.log("MOUNTING DM")
-    debugger;
     this.props.fetchTeammates(this.props.currentUser.team.id)
   }
 
@@ -62,7 +61,7 @@ class NewDMModal extends React.Component {
         <Modal.Content>
           <Form>
             <Divider horizontal>Add Teammates</Divider>
-            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={this.populateTeammates()} onChange={this.handleDropDownChange}/>
+            <Dropdown placeholder='Select Friend(s)' fluid multiple search selection options={this.populateTeammates} onChange={this.handleDropDownChange}/>
           </Form>
         </Modal.Content>
         <Modal.Actions>

@@ -6,7 +6,7 @@ import { teammatesReducer } from './teammatesReducer';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  channel: channelsReducer,
+  channels: channelsReducer,
   async: asyncReducer,
   teammates: teammatesReducer
 });

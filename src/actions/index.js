@@ -1,11 +1,17 @@
 import { adapter } from '../adapter';
-import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_TEAMMATES, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER } from '../constants';
+import { SET_LAST_SEEN_CHANNEL, ASYNC_START, ASYNC_FINISH, GRAB_ALL_USERS, USER_ONLINE, USER_OFFLINE, SET_CURRENT_USER, SET_TEAMMATES, SET_CURRENT_CHANNEL, GRAB_ALL_USER_CHANNELS, ADD_MESSAGE_TO_CHANNEL, ADD_CHANNEL_TO_USER, ADD_DM_TO_USER, UPDATE_ACTIVE_CHANNEL, UPDATE_LAST_CHANNEL_READ_MESSAGES, LOGOUT_USER, SET_MESSAGES, SET_CHANNELS } from '../constants';
 
 export const fetchUser = () => dispatch => {
   adapter.auth.getCurrentUser().then(user => {
     dispatch({ type: SET_CURRENT_USER, user })
   });
 };
+
+export const fetchMessages = (slug) => dispatch => {
+  adapter.channel.messages(slug).then(messages => {
+    dispatch({type: SET_MESSAGES, messages })
+  })
+}
 
 
 // Hits the auth controller #show action, grabs token from localStorage and if loggedIn sends back user id, username, team and display name
@@ -26,7 +32,8 @@ export const loginUser = (username, password, history) => dispatch => {
     dispatch({ type: ASYNC_FINISH });
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
-    localStorage.setItem('user_id', user.id)
+    localStorage.setItem('user_id', user.id);
+    localStorage.setItem('user_id', user.last_seen_channel.slug);
     dispatch({ type: SET_CURRENT_USER, user });
     history.push('/home');
   });
@@ -52,12 +59,10 @@ export const logoutUser = history => dispatch => {
 };
 
 // Before this function runs there should be a logic check to see if a user is a member of any channels. If so, it should grab the one with the most recently read message (this will be a custom function on the Channel model that iterates through all the channels and finds the one most recently read)
-export const grabActiveChannel = (channel_id) => dispatch => {
-  adapter.channels.fetchChannel(channel_id).then(channel => {
-    debugger
-    console.log("Just finished fething the active channel", channel)
-    dispatch({ type: SET_CURRENT_CHANNEL, channel})
-    localStorage.setItem('activeChannel', channel_id);
+export const fetchChannels = (teamID, userID) => dispatch => {
+  adapter.channels.grabChannels(teamID, userID).then(channels => {
+      debugger;
+      dispatch({ type: SET_CHANNELS, channels})
   })
 }
 

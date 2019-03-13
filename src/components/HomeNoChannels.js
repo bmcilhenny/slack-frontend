@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import ChannelsListContainer from '../containers/ChannelsListContainer';
+import ChannelList from '../containers/ChannelList';
 import ActiveChannelContainer from '../containers/ActiveChannelContainer';
 import Sound from 'react-sound';
 
@@ -17,7 +17,7 @@ class HomeNoChannels extends React.Component {
     console.log("THE SLACK HOME STATE IS", this.state)
     return (
       <div className="ui pad equal height grid">
-        <div className="three wide column slackPurple"><ChannelsListContainer /></div>
+        <div className="three wide column slackPurple"><ChannelList /></div>
         <div className="thirteen wide column"><ActiveChannelContainer channel={this.props.lastSeenChannel} /></div>
       </div>
     )

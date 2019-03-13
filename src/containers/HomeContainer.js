@@ -2,21 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Switch, Route } from 'react-router-dom';
-import HomeLoading from '../components/HomeLoading';
-import Home from '../components/Home';
+import Dashboard from '../containers/Dashboard';
 import HomeNoChannels from '../components/HomeNoChannels';
 import withAuth from '../hocs/withAuth'
 
-
-// This component should be moved into a container that contains the ChannelsListContainer and the ActiveChannelContainer component
 class HomeContainer extends React.Component {
   
   componentDidMount() {
-    let channelSlug = this.props.lastSeenChannel;
-    if (channelSlug) {
-      if (channelSlug.name) {
-        debugger;
-        this.props.history.push(`/home/${channelSlug}`)
+    const lastSeenChannel = this.props.lastSeenChannel;
+    if (lastSeenChannel) {
+      if (lastSeenChannel.name) {
+        this.props.history.push(`/home/${lastSeenChannel.slug}`)
       }
     }
   }
@@ -28,7 +24,7 @@ class HomeContainer extends React.Component {
       <Switch>
         <Route
           path="/home/:channelSlug"
-          component={Home}
+          component={Dashboard}
         />
         <Route
           path="/home"
