@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import './App.css';x
+import './App.css';
 import LandingContainer from './containers/LandingContainer';
 import NoMatch from './components/landing/NoMatch';
 import Dashboard from './containers/Dashboard';
