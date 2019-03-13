@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { ActionCable } from 'react-actioncable-provider';
 import Channel from './Channel';
-import Cable from;
+import Cable from '../cables/Cable';
 import { connect } from 'react-redux';
+import NewChannelModal from '../modals/NewChannelModal';
 
 class ChannelList extends React.Component {
     constructor(props) {
@@ -36,7 +37,8 @@ class ChannelList extends React.Component {
 
     render() {
         const { activeChannel } = this.state;
-        const channelList = this.props.channels.map(channel => {
+        const { channels } = this.props;
+        const channelList = channels.map(channel => {
             const active = activeChannel === channel.id;
             return (
                 <Channel 
@@ -46,7 +48,7 @@ class ChannelList extends React.Component {
                     handleClick={this.handleClick}
                 />
             )
-        }
+        });
 
         return (
             <Fragment>
@@ -59,7 +61,7 @@ class ChannelList extends React.Component {
                     handleReceivedMessage={this.props.handleReceivedMessage}
                 />
                 <h3 className="white">Channels</h3>
-                < NewChannelModal/>
+                <NewChannelModal />
                 {channelList}
             </Fragment>
         )

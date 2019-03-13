@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import SidebarHeader from './SidebarHeader';
 import ChannelList from './ChannelList';
+import DirectMessageList from './DirectMessageList';
 
 class Sidebar extends React.Component {
     constructor(props) {

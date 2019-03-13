@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Icon } from 'semantic-ui-react';
 
 const SidebarHeader = (props) => {
 

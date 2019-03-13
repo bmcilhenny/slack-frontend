@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
-import { ActionCable } from 'react-actioncable-provider';
+// import { ActionCable } from 'react-actioncable-provider';
 import { connect } from 'react-redux';
-import Cable from '../components/cables/Cable';
-import * as actions from '../actions'
-import ActiveChannelContainer from './ActiveChannelContainer';
-import ChannelList from './ChannelList';
+import * as actions from '../actions';
+import Sidebar from '../components/sidebar/Sidebar';
+import ActiveChannel from '../components/active_channel/ActiveChannel';
+// import Cable from '../components/cables/Cable';
+// import ActiveChannelContainer from './ActiveChannelContainer';
+// import ChannelList from './ChannelList';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -47,8 +49,8 @@ class Dashboard extends React.Component {
     debugger;
     return (
       <Fragment>
-        <Sidebar/>
-        <ActiveChannel />
+       <Sidebar />
+       <ActiveChannel />
       </Fragment>
       
     );
@@ -80,32 +82,32 @@ const mapChannels = (channels, handleClick) => {
   });
 };
 
-
-<Fragment>
-        <ActionCable
-          channel={{ channel: 'channelsChannel' }}
-          onReceived={this.handleReceivedChannel}
-        />
-        {channels.length ? (
-          <Cable
-            channels={channels}
-            handleReceivedMessage={this.handleReceivedMessage}
-          />
-        ) : null}
-        <div className="ui pad equal height grid">
-          <div className="three wide column slackPurple">
-            <ChannelList channels={this.props.channels} handleClick={this.handleClick} />
-          </div>
-          {activeChannel ? (
-            <div className="thirteen wide column">
-              <ActiveChannelContainer 
-                channel={findActiveChannel(
-                  channels,
-                  activeChannel
-                )} 
-              />
-            </div>
-          ) : null }
-        </div>
-          {/* CREATE A NO CHANNEL COMPONENT */}
-      </Fragment>
+// 
+// {/* <Fragment>
+//         <ActionCable
+//           channel={{ channel: 'channelsChannel' }}
+//           onReceived={this.handleReceivedChannel}
+//         />
+//         {channels.length ? (
+//           <Cable
+//             channels={channels}
+//             handleReceivedMessage={this.handleReceivedMessage}
+//           />
+//         ) : null}
+//         <div className="ui pad equal height grid">
+//           <div className="three wide column slackPurple">
+//             <ChannelList channels={this.props.channels} handleClick={this.handleClick} />
+//           </div>
+//           {activeChannel ? (
+//             <div className="thirteen wide column">
+//               <ActiveChannelContainer 
+//                 channel={findActiveChannel(
+//                   channels,
+//                   activeChannel
+//                 )} 
+//               />
+//             </div>
+//           ) : null }
+//         </div>
+//           {/* CREATE A NO CHANNEL COMPONENT */}
+//       </Fragment> */}

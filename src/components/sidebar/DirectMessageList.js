@@ -3,6 +3,7 @@ import { ActionCable } from 'react-actioncable-provider';
 import DirectMessage from './DirectMessage';
 import Cable from '../cables/Cable'; 
 import { connect } from 'react-redux';
+import NewDMModal from '../modals/NewDMModal';
 
 class DirectMessageList extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class DirectMessageList extends React.Component {
                     handleClick={this.handleClick}
                 />
             )
-        }
+        })
 
         return (
             <Fragment>
@@ -42,7 +43,7 @@ class DirectMessageList extends React.Component {
                     handleReceivedMessage={this.props.handleReceivedMessage}
                 />
                 <h3 className="white">Direct Message</h3>
-                < NewDMModal />
+                <NewDMModal />
                 {dmList}
             </Fragment>
         )
