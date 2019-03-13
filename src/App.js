@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import './App.css';
-import HomeContainer from './containers/HomeContainer';
+import './App.css';x
 import LandingContainer from './containers/LandingContainer';
 import NoMatch from './components/landing/NoMatch';
+import Dashboard from './containers/Dashboard';
 
 
 class App extends React.Component {
@@ -17,8 +17,8 @@ class App extends React.Component {
             component={LandingContainer}
             />
           <Route
-            path="/home"
-            render={HomeContainer}
+            path="/dashboard"
+            render={Dashboard}
             />
           <Route
             render={NoMatch}
@@ -31,19 +31,3 @@ class App extends React.Component {
 
 
 export default withRouter(App);
-
-// const mapStateToProps = state => ({
-//   loggedIn: !!state.auth.currentUser.id
-// });
-
-// previous routes
-// <Route path="/" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider>}>
-// </Route>
-// <Route path="/login" render = {() => !this.props.loggedIn ? <Login /> :  <Redirect to="/home"/> }>
-// </Route>
-// <Route path="/signup" render = {() => !this.props.loggedIn ? <Signup /> :  <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider> }>
-// </Route>
-// <Route path="/home" render = {() => !this.props.loggedIn ? <Redirect to="/login"/> : <ActionCableProvider url={`${ActionCableAPIURL}/cable?token=${localStorage.getItem('token')}`}> <Home /> </ActionCableProvider> }>
-// </Route>
-// <Route component={NoMatch}>
-// </Route>

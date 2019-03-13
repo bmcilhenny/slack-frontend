@@ -33,9 +33,8 @@ export const loginUser = (username, password, history) => dispatch => {
     console.log("This is the user", user)
     localStorage.setItem('token', user.jwt);
     localStorage.setItem('user_id', user.id);
-    localStorage.setItem('user_id', user.last_seen_channel.slug);
     dispatch({ type: SET_CURRENT_USER, user });
-    history.push('/home');
+    history.push('/dashboard');
   });
 };
 
@@ -52,7 +51,6 @@ export const signup = user => dispatch => {
 
 // Logout user, removes token from local storage. Return line does not have a purpose at the moment.
 export const logoutUser = history => dispatch => {
-  debugger;
   localStorage.removeItem('token');
   history.push('/login');
   return { type: LOGOUT_USER };

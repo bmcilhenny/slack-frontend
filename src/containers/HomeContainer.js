@@ -12,7 +12,7 @@ class HomeContainer extends React.Component {
     const lastSeenChannel = this.props.lastSeenChannel;
     if (lastSeenChannel) {
       if (lastSeenChannel.name) {
-        this.props.history.push(`/home/${lastSeenChannel.slug}`)
+        this.props.history.push(`/dashboard/${lastSeenChannel.slug}`)
       }
     }
   }
@@ -23,11 +23,11 @@ class HomeContainer extends React.Component {
     return (
       <Switch>
         <Route
-          path="/home/:channelSlug"
+          path="/dashboard/:channelSlug"
           component={Dashboard}
         />
         <Route
-          path="/home"
+          path="/dashboard"
           component={HomeNoChannels}
         />
         {/* <Route
